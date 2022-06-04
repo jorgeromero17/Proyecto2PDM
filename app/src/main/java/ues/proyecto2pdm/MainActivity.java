@@ -1,6 +1,8 @@
 package ues.proyecto2pdm;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -10,6 +12,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import ues.proyecto2pdm.Graficos.GraficosActivity;
 import ues.proyecto2pdm.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,6 +35,14 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        findViewById(R.id.buttonBarchart).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, GraficosActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 }

@@ -15,6 +15,9 @@
             android:name=".MiCuentaActivity"
             android:exported="false" />
         <activity
+            android:name=".Graficos.GraficosActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
