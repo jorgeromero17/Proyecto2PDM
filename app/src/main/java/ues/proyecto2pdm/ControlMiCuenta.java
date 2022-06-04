@@ -123,4 +123,35 @@ public class ControlMiCuenta {
         return null;
     }
 
+
+    public Usuario verificarUsuario(Usuario usuario){
+        try{
+            Cursor cursor = db.query("usuario", camposUsuario, "correo = '" + usuario.getCorreo() + "' ", null, null, null, null);
+            if (cursor.moveToFirst()) {
+                Usuario usr = new Usuario();
+                usr.setIdUsuario(cursor.getInt(0));
+                usr.setNombre(cursor.getString(1));
+                usr.setCorreo(cursor.getString(2));
+                return usr;
+            } else {
+                String regInsertados = "Registro Insertado No = ";
+                long contador = 0;
+
+                ContentValues car = new ContentValues();
+                car.put("correo", usuario.getCorreo());
+                car.put("nombre", usuario.getNombre());
+                contador = db.insert("usuario", null, car);
+                if(contador == -1 || contador == 0){
+                    regInsertados = "Error al insertar el registro. Registro duplicado. Verificar insercion";
+                } else{
+                    regInsertados = regInsertados + contador;
+                }
+                return usuario;
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
