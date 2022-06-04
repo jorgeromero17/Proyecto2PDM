@@ -23,6 +23,10 @@ import com.squareup.picasso.Picasso;
 
 public class MiCuentaActivity extends AppCompatActivity {
 
+    TextView nombre, correo;
+    ImageView foto;
+    Button irObjetivos;
+
     private FirebaseAuth mAuth;
     //Variables opcionales para desloguear de google tambien private
     GoogleSignInClient mGoogleSignInClient;
@@ -33,14 +37,18 @@ public class MiCuentaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mi_cuenta);
 
+        // Sacando los datos de la sesion
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if(currentUser!=null){
-            ImageView imageView = (ImageView) findViewById(R.id.imagenUsuario);
-            TextView textView = (TextView) findViewById(R.id.usuario);
-            textView.setText(currentUser.getDisplayName()+" "+currentUser.getEmail());
-            Picasso.get().load(currentUser.getPhotoUrl()).into(imageView);
+            foto = (ImageView) findViewById(R.id.imagenUsuario);
+            nombre = (TextView) findViewById(R.id.nombreUsuario);
+            correo = (TextView) findViewById(R.id.correoUsuario);
+
+            nombre.setText(currentUser.getDisplayName());
+            nombre.setText(currentUser.getEmail());
+            Picasso.get().load(currentUser.getPhotoUrl()).into(foto);
 
             gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                     .requestIdToken("912967255293-ug9ul30r06o7phe4ekhqugpvcri76380.apps.googleusercontent.com")
@@ -49,27 +57,19 @@ public class MiCuentaActivity extends AppCompatActivity {
 
 
 
+        //Sacando los datos de la base
 
 
 
-            /*Button logout = binding.logout;
-            logout.setOnClickListener(new View.OnClickListener() {
+            irObjetivos = (Button) findViewById(R.id.irObjetivos);
+            irObjetivos.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mAuth.signOut();
-                    mGoogleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override public void onComplete(@NonNull Task<Void> task) {
-                            //Abrir MainActivity con SigIn button
-                            if(task.isSuccessful()){
-                                startActivity(new Intent(getActivity(), LoginActivity.class));
-                                getActivity().finish();
-                            }else{
-                                Toast.makeText(getContext(), "No se pudo cerrar sesión con google", Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
+                    Intent intent = new Intent(MiCuentaActivity.this, ConsultarObjetivosActivity.class);
+                    startActivity(intent);
                 }
-            });*/
+            });
+
         }
 
     }

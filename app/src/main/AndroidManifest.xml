@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Proyecto2PDM.NoActionBAr">
         <activity
+            android:name=".CrearObjetivoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ConsultarObjetivosActivity"
+            android:exported="false" />
+        <activity
             android:name=".MiCuentaActivity"
             android:exported="false" />
         <activity
@@ -29,7 +35,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.Proyecto2PDM"></activity>
+            android:theme="@style/Theme.Proyecto2PDM" />
     </application>
 
 </manifest>

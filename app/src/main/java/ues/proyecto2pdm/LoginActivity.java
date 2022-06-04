@@ -109,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
     //Metodo que lo manda al Main
     void irAMainActivity(){
         finish();
-        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+        Intent intent = new Intent(LoginActivity.this,MiCuentaActivity.class);
         startActivity(intent);
     }
 
