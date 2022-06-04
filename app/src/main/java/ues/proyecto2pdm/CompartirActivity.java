@@ -4,16 +4,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -31,9 +36,13 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+import com.yalantis.ucrop.UCrop;
 
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -45,6 +54,7 @@ public class CompartirActivity extends AppCompatActivity {
     private static final int PERMISSION_CAMERA_REQUEST = 3;
     private static final int IMAGE_CAMERA_REQUEST = 2;
     private static final int PICK_MAGE_REQUEST = 1 ;
+    private static final String SAMPLE_CROPPED_IMAGE = "SampleCropImg";
     //variables base de datos
     private FirebaseAuth mAuth;
     FirebaseUser currentUser;
@@ -58,8 +68,7 @@ public class CompartirActivity extends AppCompatActivity {
     ProgressBar progressBar;
     ImageView imageView;
 
-    Boolean cam = false;
-    byte bb[];
+    String currentPhotoPath = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +103,7 @@ public class CompartirActivity extends AppCompatActivity {
         publicacion.setLikes(0);
         publicacion.setNombreusuario(currentUser.getDisplayName());
 
-        if(FileUri!=null && !cam){
+        if(FileUri!=null){
 
             buttonsubirfoto.setEnabled(false);
             buttonmandar.setEnabled(false);
@@ -132,40 +141,7 @@ public class CompartirActivity extends AppCompatActivity {
                 }
             });
         }
-        if (FileUri==null && cam){
-            StorageReference file_name = Folder.child(System.currentTimeMillis()+".jpg");
-            file_name.putBytes(bb).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            progressBar.setProgress(0);
-                        }
-                    },1000);
-                    Toast.makeText(CompartirActivity.this,"Subido correctamente",Toast.LENGTH_LONG).show();
-                    publicacion.setUrlimagen(taskSnapshot.getMetadata().getReference().getDownloadUrl().toString());
-                    miref.child(publicacion.getId()).setValue(publicacion);
-                    finish();
-                }
-            })
-            .addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(CompartirActivity.this,e.getMessage(),Toast.LENGTH_LONG).show();
-                }
-            })
-            .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                    double progress = (100.0*snapshot.getBytesTransferred()/snapshot.getTotalByteCount());
-                    progressBar.setProgress((int)progress);
-                }
-            });
-
-        }
-        if(FileUri==null && !cam){
+        if(FileUri==null){
             Toast.makeText(CompartirActivity.this,"Agregue una imagen",Toast.LENGTH_LONG).show();
         }
 
@@ -184,11 +160,19 @@ public class CompartirActivity extends AppCompatActivity {
         }
     }
 
-    private void irACamara() {
-        Intent camara = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        //if(camara.resolveActivity(getPackageManager()) != null){
-            startActivityForResult(camara,PERMISSION_CAMERA_REQUEST);
-        //}
+    private void irACamara(){
+        Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        File file = null; // 1
+        try {
+            file = getImageFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Uri uri;
+        uri = FileProvider.getUriForFile(CompartirActivity.this, BuildConfig.APPLICATION_ID.concat(".provider"), file);
+        pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri); // 4
+        startActivityForResult(pictureIntent, PERMISSION_CAMERA_REQUEST);
+
     }
 
     private void abrirArchivos() {
@@ -215,31 +199,68 @@ public class CompartirActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == PICK_MAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData()!=null){
-            FileUri = data.getData();
+        if(requestCode == PICK_MAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
+            Uri uritemporal  = data.getData();
+            IniciarCrop(uritemporal);
+
+        }
+        if(requestCode == UCrop.REQUEST_CROP && resultCode == RESULT_OK  && data != null){
+            FileUri = UCrop.getOutput(data);
             Picasso.get().load(FileUri).into(imageView);
         }
-
-        if(requestCode == PERMISSION_CAMERA_REQUEST && resultCode == RESULT_OK ){
-            cam = true;
-            FileUri = data.getData();
-
-            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG,80,bytes);
-            bb = bytes.toByteArray();
-            //String file = Base64.encodeToString(bb,Base64.DEFAULT);
-            imageView.setImageBitmap(bitmap);
-
-
+        if(requestCode == PERMISSION_CAMERA_REQUEST && resultCode == RESULT_OK){
+            Uri uritemporal = Uri.parse(currentPhotoPath);
+            IniciarCropCamara(uritemporal, uritemporal);
         }
 
     }
 
+    private void IniciarCropCamara(Uri sourceUri, Uri destinationUri) {
+        UCrop.of(sourceUri, destinationUri)
+                .withMaxResultSize(500, 500)
+                .withAspectRatio(1, 1)
+                .withOptions(CropOpciones())
+                .start(CompartirActivity.this);
+    }
+
+    public void IniciarCrop(Uri uri){
+        String nombreFile = SAMPLE_CROPPED_IMAGE;
+        nombreFile +=".jpg";
+        UCrop ucrop = UCrop.of(uri, Uri.fromFile(new File(getCacheDir(),nombreFile)));
+        ucrop.withAspectRatio(1, 1);
+
+        ucrop.withMaxResultSize(500, 500);
+        ucrop.withOptions(CropOpciones());
+        ucrop.start(CompartirActivity.this);
+
+    }
+
+    private UCrop.Options CropOpciones() {
+        UCrop.Options options = new UCrop.Options();
+        options.setCompressionQuality(70);
+        options.setCompressionFormat(Bitmap.CompressFormat.JPEG);
+        options.setHideBottomControls(false);
+        options.setFreeStyleCropEnabled(false);
+        options.setStatusBarColor(getResources().getColor(R.color.primaryLightColor));
+        options.setToolbarColor(getResources().getColor(R.color.primaryColor));
+        options.setToolbarWidgetColor(getResources().getColor(R.color.white));
+        options.setToolbarTitle("Editar imagen");
+        return options;
+
+    }
 
     private String getFechaHora() {
         DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
         Date date = new Date();
         return dateFormat.format(date);
     }
+
+    private File getImageFile() throws IOException {
+
+        File storageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "Camera");
+        File file = File.createTempFile(SAMPLE_CROPPED_IMAGE, ".jpg", storageDir);
+        currentPhotoPath = "file:" + file.getAbsolutePath();
+        return file;
+    }
+
 }
