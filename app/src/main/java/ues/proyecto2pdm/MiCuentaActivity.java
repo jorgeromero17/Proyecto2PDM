@@ -21,11 +21,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
+import ues.proyecto2pdm.Calendario.MainActivity;
+
 public class MiCuentaActivity extends AppCompatActivity {
 
     TextView nombre, correo;
     ImageView foto;
-    Button irObjetivos;
+    Button irObjetivos, irCalendario;
 
     private FirebaseAuth mAuth;
     //Variables opcionales para desloguear de google tambien private
@@ -36,7 +38,6 @@ public class MiCuentaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mi_cuenta);
-
         // Sacando los datos de la sesion
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -66,6 +67,16 @@ public class MiCuentaActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(MiCuentaActivity.this, ConsultarObjetivosActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+
+            irCalendario = (Button) findViewById(R.id.irObjetivos3);
+            irCalendario.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(MiCuentaActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
             });

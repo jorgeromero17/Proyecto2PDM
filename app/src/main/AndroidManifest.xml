@@ -40,6 +40,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".Calendario.MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Proyecto2PDM"/>
+        <activity android:name=".Calendario.WeekViewActivity"></activity>
+        <activity android:name=".Calendario.EventEditActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

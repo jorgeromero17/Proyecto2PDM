@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Calendario.WeekViewActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textAlignment="center"
+        android:text="¡Puedes ingresar una nota en el día que prefieras!"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp"
+        android:background="@color/primaryLightColor"
+        android:layout_marginTop="20dp">
+
+
+        <Button
+            android:layout_width="12dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:onClick="previousWeekAction"
+            android:text="Atras"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/monthYearTV"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:text="Feb 2021"
+            android:textSize="18sp"
+            android:textAlignment="center"
+            android:textColor="@color/black"/>
+
+        <Button
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:onClick="nextWeekAction"
+            android:text="Siguiente"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="DOM"
+            android:background="@color/primaryLightColor"
+            android:textColor="@color/cardview_light_background"
+            android:textAlignment="center"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="LUN"
+            android:background="@color/primaryLightColor"
+            android:textColor="@color/cardview_light_background"
+            android:textAlignment="center"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="MAR"
+            android:background="@color/primaryLightColor"
+            android:textColor="@color/cardview_light_background"            android:textAlignment="center"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="MIE"
+            android:background="@color/primaryLightColor"
+            android:textColor="@color/cardview_light_background"            android:textAlignment="center"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="JUE"
+            android:background="@color/primaryLightColor"
+            android:textColor="@color/cardview_light_background"            android:textAlignment="center"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="VIE"
+            android:background="@color/primaryLightColor"
+            android:textColor="@color/cardview_light_background"            android:textAlignment="center"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="SAB"
+            android:background="@color/primaryLightColor"
+            android:textColor="@color/cardview_light_background"            android:textAlignment="center"
+            android:textSize="16sp"/>
+
+
+    </LinearLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/calendarRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_weight="1"/>
+
+
+    <Button
+        android:layout_width="297dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@null"
+        android:onClick="newEventAction"
+        android:text="Agregar Nota"
+        android:textColor="@color/primarySuperDarkColor"
+        android:textSize="15sp" />
+
+
+    <TextView
+        android:layout_width="425dp"
+        android:layout_height="58dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:background="@color/primaryLightColor"
+        android:text="Notas del día seleccionado"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="25sp" />
+
+    <ListView
+        android:id="@+id/eventListView"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_weight="10"></ListView>
+
+
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
