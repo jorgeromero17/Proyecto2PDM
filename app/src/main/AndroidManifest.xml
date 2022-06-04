@@ -14,6 +14,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Proyecto2PDM">
         <activity
+            android:name=".CrearObjetivoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ConsultarObjetivosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MiCuentaActivity"
+            android:exported="false" />
+        <activity
             android:name=".Graficos.GraficosActivity"
             android:exported="false" />
         <activity

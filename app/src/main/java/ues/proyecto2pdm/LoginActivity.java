@@ -34,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     int RC_SIGN_IN = 1 ;
     String TAG = "GoogleSignIn";
     Button buttongoogle;
+    ControlMiCuenta helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,8 +92,19 @@ public class LoginActivity extends AppCompatActivity {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success");
                     //FirebaseUser user = mAuth.getCurrentUser();
+
+                    helper = new ControlMiCuenta(LoginActivity.this);
+                    FirebaseUser currentUser = mAuth.getCurrentUser();
+                    Usuario usuario = new Usuario();
+                    usuario.setNombre(currentUser.getDisplayName());
+                    usuario.setCorreo(currentUser.getEmail());
+                    Usuario nuevUsuario;
+                    helper.abrir();
+                    nuevUsuario = helper.verificarUsuario(usuario);
+                    helper.cerrar();
+
                     //Iniciar DASHBOARD u otra actividad luego del SigIn Exitoso
-                    irAMainActivity();
+                    irAMainActivity(nuevUsuario);
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -107,9 +119,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     //Metodo que lo manda al Main
-    void irAMainActivity(){
+    void irAMainActivity(Usuario usuario){
         finish();
-        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+        Intent intent = new Intent(LoginActivity.this,MiCuentaActivity.class);
+        intent.putExtra("idUsuario",usuario.getIdUsuario());
+        intent.putExtra("nombre",usuario.getNombre());
+        intent.putExtra("correo",usuario.getCorreo());
         startActivity(intent);
     }
 
@@ -119,7 +134,16 @@ public class LoginActivity extends AppCompatActivity {
         if(user!=null) {
             //si no es null el usuario ya esta logueado
             //mover al usuario al main
-            irAMainActivity();
+            helper = new ControlMiCuenta(LoginActivity.this);
+            Usuario usuario = new Usuario();
+            usuario.setNombre(user.getDisplayName());
+            usuario.setCorreo(user.getEmail());
+            Usuario nuevUsuario;
+            helper.abrir();
+            nuevUsuario = helper.verificarUsuario(usuario);
+            helper.cerrar();
+
+            irAMainActivity(nuevUsuario);
         }
         super.onStart();
     }

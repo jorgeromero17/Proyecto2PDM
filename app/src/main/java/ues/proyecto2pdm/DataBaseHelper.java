@@ -26,7 +26,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
             db.execSQL("CREATE TABLE usuario (idUsuario INTEGER PRIMARY KEY AUTOINCREMENT, correo VARCHAR(50) NOT NULL,nombre VARCHAR(100) NOT NULL);");
             db.execSQL("CREATE TABLE pomodoro (idPomodoro INTEGER PRIMARY KEY AUTOINCREMENT, fecha VARCHAR(10));");
-            db.execSQL("CREATE TABLE objetivo (idObjetivo INTEGER PRIMARY KEY AUTOINCREMENT, objetivo VARCHAR(255) NOT NULL,estado VARCHAR(15) NOT NULL, cantPomodoro INTEGER);");
+            db.execSQL("CREATE TABLE objetivo (idObjetivo INTEGER PRIMARY KEY AUTOINCREMENT, idUsuario INTEGER NOT NULL, objetivo VARCHAR(255) NOT NULL,estado VARCHAR(15) NOT NULL, cantPomodoro INTEGER);");
             db.execSQL("INSERT INTO pomodoro VALUES(1,'3/06/2022')");
             db.execSQL("INSERT INTO pomodoro VALUES(2,'3/06/2022')");
             db.execSQL("INSERT INTO pomodoro VALUES(3,'4/06/2022')");
