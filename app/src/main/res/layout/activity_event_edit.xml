@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Calendario.EventEditActivity">
+
+
+    <TextView
+        android:layout_width="284dp"
+        android:layout_height="58dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="110dp"
+        android:background="@color/primaryLightColor"
+        android:text="Agrega una descripción"
+        android:textAlignment="center"
+        android:textColor="@color/cardview_light_background"
+        android:textSize="25sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/eventNameET"
+        android:layout_width="322dp"
+        android:layout_height="71dp"
+        android:layout_gravity="center"
+
+        android:ems="10"
+        android:inputType="text"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="163dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@color/primaryLightColor"
+        android:text="Fecha:"
+        android:textAlignment="center"
+        android:textColor="@color/cardview_light_background"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/eventDateTV"
+        android:layout_width="276dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="Date"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <Button
+        android:layout_width="209dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@null"
+        android:onClick="saveEventAction"
+        android:text="Guardar"
+        android:textColor="@color/primarySuperDarkColor"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+</LinearLayout>

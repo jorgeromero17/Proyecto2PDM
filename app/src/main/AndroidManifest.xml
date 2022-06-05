@@ -2,7 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ues.proyecto2pdm">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -20,10 +24,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Proyecto2PDM">
         <activity
-            android:name=".DestinationActivity"
+            android:name=".LoginActivity"
+            android:theme="@style/Theme.Proyecto2PDM.NoActionBAr"
             android:exported="false" />
         <activity
-            android:name=".ClockActivity"
+            android:name=".CrearObjetivoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ConsultarObjetivosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MiCuentaActivity"
             android:exported="false" />
         <activity
             android:name=".Graficos.GraficosActivity"
@@ -32,7 +43,29 @@
             android:name=".CompartirActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".DestinationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ClockActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Proyecto2PDM"/>
+        <activity android:name=".PublicacionesActivity" />
+        <activity
+            android:name=".Calendario.MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Proyecto2PDM" />
+        <activity android:name=".Calendario.WeekViewActivity" />
+        <activity android:name=".Calendario.EventEditActivity" />
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <receiver android:name=".AlarmReceiver" />
+        <activity
+            android:name=".Animaciones.InicioActivity"
             android:exported="true"
             android:theme="@style/Theme.Proyecto2PDM.NoActionBAr">
             <intent-filter>
@@ -41,11 +74,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:theme="@style/Theme.Proyecto2PDM" />
-        <receiver android:name=".AlarmReceiver" />
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/providers_paths" />
+        </provider>
     </application>
 
 </manifest>
