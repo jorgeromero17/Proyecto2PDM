@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -27,6 +28,9 @@ public class ClockActivity extends AppCompatActivity {
     public static final String myPref = "pref";
     public static final String mintAchive = "mints";
 
+    //MUSICA
+    MediaPlayer mp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +47,7 @@ public class ClockActivity extends AppCompatActivity {
         again = findViewById(R.id.agine);
         Intent intent = getIntent();
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
+        mp = MediaPlayer.create(ClockActivity.this, R.raw.naturaleza);
         value = intent.getIntExtra(number, -1);
         if (value != -1) {
             timer.setText(value + " : 00");
@@ -86,6 +90,9 @@ public class ClockActivity extends AppCompatActivity {
                 end.setVisibility(View.GONE);
                 home.setVisibility(View.VISIBLE);
                 again.setVisibility(View.VISIBLE);
+                //DETENER MUSICA
+                mp.stop();
+
                 home.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -121,6 +128,9 @@ public class ClockActivity extends AppCompatActivity {
                 countDownTimer.start();
                 start.setVisibility(View.GONE);
                 end.setVisibility(View.VISIBLE);
+                //MUSICA
+                mp = MediaPlayer.create(ClockActivity.this, R.raw.naturaleza);
+                mp.start();
             }
         });
 
@@ -137,6 +147,7 @@ public class ClockActivity extends AppCompatActivity {
                                 timer.setText(value + " : 00");
                                 end.setVisibility(View.GONE);
                                 start.setVisibility(View.VISIBLE);
+                                mp.stop();
                             }
                         })
                         .setNegativeButton("NO", new DialogInterface.OnClickListener() {
@@ -146,12 +157,14 @@ public class ClockActivity extends AppCompatActivity {
                             }
                         });
                 builder.create().show();
+
             }
         });
     }
 
     @Override
     public void onBackPressed() {
+        mp.stop();
         super.onBackPressed();
         startActivity(new Intent(ClockActivity.this, MainActivity.class));
         finish();
