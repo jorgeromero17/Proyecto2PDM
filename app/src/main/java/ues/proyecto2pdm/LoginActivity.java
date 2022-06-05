@@ -129,13 +129,11 @@ public class LoginActivity extends AppCompatActivity {
     void irAMainActivity(Usuario usuario){
         finish();
         Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-        /*intent.putExtra("idUsuario",usuario.getIdUsuario());
-        intent.putExtra("nombre",usuario.getNombre());
-        intent.putExtra("correo",usuario.getCorreo());*/
 
         editor.putInt("idUsuario",usuario.getIdUsuario());
         editor.putString("usuario",usuario.getNombre());
 
+        editor.apply();
 
         startActivity(intent);
     }

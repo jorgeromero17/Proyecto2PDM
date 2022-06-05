@@ -3,7 +3,9 @@ package ues.proyecto2pdm.Calendario;
 import static ues.proyecto2pdm.Calendario.CalendarUtils.daysInMonthArray;
 import static ues.proyecto2pdm.Calendario.CalendarUtils.monthYearFromDate;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -25,12 +27,17 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
     int idUsuario;
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        idUsuario = getIntent().getExtras().getInt("idUsuario");
+        preferences = this.getSharedPreferences("sesion", Context.MODE_PRIVATE);
+        editor = preferences.edit();
+
+        idUsuario = preferences.getInt("idUsuario",0);
         super.onCreate(savedInstanceState);
         Event.eventsList = (ArrayList<Event>)PrefConfig.readListFromPref(this);
         if (Event.eventsList == null)
