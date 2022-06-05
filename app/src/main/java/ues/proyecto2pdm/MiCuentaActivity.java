@@ -26,6 +26,8 @@ public class MiCuentaActivity extends AppCompatActivity {
     TextView nombre, correo;
     ImageView foto;
     Button irObjetivos;
+    int extraIdUsuario;
+    String extraNombre, extraCorreo;
 
     private FirebaseAuth mAuth;
     //Variables opcionales para desloguear de google tambien private
@@ -37,7 +39,10 @@ public class MiCuentaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mi_cuenta);
 
-        // Sacando los datos de la sesion
+        extraIdUsuario = getIntent().getExtras().getInt("idUsuario");
+        extraNombre = getIntent().getExtras().getString("nombre");
+        extraCorreo = getIntent().getExtras().getString("correo");
+
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
@@ -46,8 +51,8 @@ public class MiCuentaActivity extends AppCompatActivity {
             nombre = (TextView) findViewById(R.id.nombreUsuario);
             correo = (TextView) findViewById(R.id.correoUsuario);
 
-            nombre.setText(currentUser.getDisplayName());
-            nombre.setText(currentUser.getEmail());
+            nombre.setText(extraNombre);
+            nombre.setText(extraCorreo);
             Picasso.get().load(currentUser.getPhotoUrl()).into(foto);
 
             gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -55,17 +60,12 @@ public class MiCuentaActivity extends AppCompatActivity {
                     .requestEmail().build();
             mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-
-
-        //Sacando los datos de la base
-
-
-
             irObjetivos = (Button) findViewById(R.id.irObjetivos);
             irObjetivos.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(MiCuentaActivity.this, ConsultarObjetivosActivity.class);
+                    intent.putExtra("idUsuario",extraIdUsuario);
                     startActivity(intent);
                 }
             });

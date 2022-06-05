@@ -21,6 +21,7 @@ public class CrearObjetivoActivity extends AppCompatActivity {
     Spinner spinerEstado;
     ArrayList<String> estadosSpinner; //para el spinner
     String estado;
+    int extraIdUsuario;
 
     EditText txtObjetivo;
     EditText txtPomodoros;
@@ -33,6 +34,7 @@ public class CrearObjetivoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_crear_objetivo);
 
         helper = new ControlObjetivo(this);
+        extraIdUsuario = getIntent().getExtras().getInt("idUsuario");
         spinerEstado = (Spinner) findViewById(R.id.spinnerEstadoObjetivo);
         txtObjetivo = (EditText) findViewById(R.id.editTextDescripcionObjetivo);
         txtPomodoros = (EditText) findViewById(R.id.editTextPomodorosObjetivo);
@@ -77,6 +79,7 @@ public class CrearObjetivoActivity extends AppCompatActivity {
                     String regInsertados;
 
                     Objetivo obj = new Objetivo();
+                    obj.setIdUsuario(extraIdUsuario);
                     obj.setObjetivo(objetivo);
                     obj.setEstado(estado);
                     obj.setCantPomodoros(cantPomodoros);
@@ -87,6 +90,7 @@ public class CrearObjetivoActivity extends AppCompatActivity {
 
                     Toast.makeText(CrearObjetivoActivity.this, regInsertados, Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(CrearObjetivoActivity.this, ConsultarObjetivosActivity.class);
+                    intent.putExtra("idUsuario",extraIdUsuario);
                     startActivity(intent);
                 }else {
                     Toast.makeText(CrearObjetivoActivity.this, "Debe llenar los campos", Toast.LENGTH_LONG).show();
