@@ -17,17 +17,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import ues.proyecto2pdm.MiCuentaActivity;
 import ues.proyecto2pdm.R;
 
 public class MainActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener
 {
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
+    int idUsuario;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        idUsuario = getIntent().getExtras().getInt("idUsuario");
         super.onCreate(savedInstanceState);
         Event.eventsList = (ArrayList<Event>)PrefConfig.readListFromPref(this);
         if (Event.eventsList == null)
@@ -84,7 +87,10 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
 
     public void weeklyAction(View view)
     {
-        startActivity(new Intent(this,WeekViewActivity.class));
+        Intent intent = new Intent(this,WeekViewActivity.class);
+        intent.putExtra("idUsuario",idUsuario);
+        startActivity(intent);
+
     }
 }
 

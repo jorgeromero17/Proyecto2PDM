@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import ues.proyecto2pdm.Graficos.GraficosActivity;
+import ues.proyecto2pdm.MiCuentaActivity;
 import ues.proyecto2pdm.R;
 
 public class WeekViewActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener
@@ -25,7 +27,7 @@ public class WeekViewActivity extends AppCompatActivity implements CalendarAdapt
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
     private ListView eventListView;
-
+    int idUsuario;
     @RequiresApi(api = Build.VERSION_CODES.O)
     public ArrayList<Event> eventsForDate(String date)
     {
@@ -49,6 +51,7 @@ public class WeekViewActivity extends AppCompatActivity implements CalendarAdapt
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        idUsuario = getIntent().getExtras().getInt("idUsuario");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_week_view);
         initWidgets();
@@ -90,6 +93,7 @@ public class WeekViewActivity extends AppCompatActivity implements CalendarAdapt
         setWeekView();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onItemClick(int position, LocalDate date)
     {
@@ -116,6 +120,8 @@ public class WeekViewActivity extends AppCompatActivity implements CalendarAdapt
 
     public void newEventAction(View view)
     {
-        startActivity(new Intent(this, EventEditActivity.class));
+        Intent intent = new Intent(this, EventEditActivity.class);
+        intent.putExtra("idUsuario",idUsuario);
+        startActivity(intent);
     }
 }

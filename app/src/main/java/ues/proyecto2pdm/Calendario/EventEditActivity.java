@@ -1,5 +1,6 @@
 package ues.proyecto2pdm.Calendario;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -12,14 +13,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.time.LocalTime;
 
+import ues.proyecto2pdm.Graficos.GraficosActivity;
+import ues.proyecto2pdm.MiCuentaActivity;
 import ues.proyecto2pdm.R;
 
 public class EventEditActivity extends AppCompatActivity
 {
 
-    String idUsuario;
     ControlCalendario helper;
     int id;
+    int idUsuario;
     Event e =new Event();
 
     private EditText eventNameET;
@@ -31,6 +34,7 @@ public class EventEditActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        idUsuario = getIntent().getExtras().getInt("idUsuario");
         super.onCreate(savedInstanceState);
         helper = new ControlCalendario(this);
         setContentView(R.layout.activity_event_edit);
@@ -55,7 +59,7 @@ public class EventEditActivity extends AppCompatActivity
 
         e.setName(eventName);
         e.setDate(fecha);
-        e.setUsuario(1);
+        e.setUsuario(idUsuario);
         helper.abrir();
         regInsertados=helper.insertar(e);
         helper.cerrar();
@@ -63,7 +67,6 @@ public class EventEditActivity extends AppCompatActivity
         id = helper.obtenerUltimo();
 
         e = helper.verUltimo(id);
-
         Toast.makeText(this, regInsertados, Toast.LENGTH_SHORT).show();
         Event newEvent = new Event();
         newEvent.setName(e.getName());
