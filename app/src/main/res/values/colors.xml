@@ -8,4 +8,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="ground_color">#FFF8CDA1</color>
+    <color name="Red">#FF0000</color>
+    <color name="blue">#FF2196F3</color>
+    <color name="green">#8AE61F</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="close">#FFFFFF</color>
+    <color name="open">#FFFDEDDD</color>
 </resources>
