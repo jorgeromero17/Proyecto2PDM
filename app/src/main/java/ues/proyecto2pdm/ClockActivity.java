@@ -90,7 +90,19 @@ public class ClockActivity extends AppCompatActivity {
         descanso =findViewById(R.id.txtDescanso);
         Intent intent = getIntent();
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        //MEDIAPLAYER PARA MUSICA
         mp = MediaPlayer.create(ClockActivity.this, R.raw.naturaleza);
+        //ELEMENTOS DE LA ALARMA
+        Button selectAlarma, aceptAlarma, cancelAlarma;
+        TextView selectTime, selectTime2;
+        //BOTONES
+        selectAlarma = findViewById(R.id.selectTimeBtn);
+        aceptAlarma = findViewById(R.id.setAlarmBtn);
+        cancelAlarma = findViewById(R.id.cancelAlarmBtn);
+        //TEXTVIEWS
+        selectTime = findViewById(R.id.selectedTime);
+        selectTime2 = findViewById(R.id.selectedTime2);
+
         value = intent.getIntExtra(number, -1);
         if (value != -1) {
             timer.setText(value + " : 00");
@@ -134,6 +146,11 @@ public class ClockActivity extends AppCompatActivity {
                 home.setVisibility(View.VISIBLE);
                 again.setVisibility(View.VISIBLE);
                 descanso.setVisibility(View.VISIBLE);
+                selectAlarma.setVisibility(View.VISIBLE);
+                aceptAlarma.setVisibility(View.VISIBLE);
+                cancelAlarma.setVisibility(View.VISIBLE);
+                selectTime.setVisibility(View.VISIBLE);
+                selectTime2.setVisibility(View.VISIBLE);
                 //DETENER MUSICA
                 mp.stop();
 
@@ -152,6 +169,11 @@ public class ClockActivity extends AppCompatActivity {
                         again.setVisibility(View.GONE);
                         start.setVisibility(View.VISIBLE);
                         descanso.setVisibility(View.GONE);
+                        selectAlarma.setVisibility(View.GONE);
+                        aceptAlarma.setVisibility(View.GONE);
+                        cancelAlarma.setVisibility(View.GONE);
+                        selectTime.setVisibility(View.GONE);
+                        selectTime2.setVisibility(View.GONE);
                     }
                 });
 
@@ -192,6 +214,11 @@ public class ClockActivity extends AppCompatActivity {
                                 timer.setText(value + " : 00");
                                 end.setVisibility(View.GONE);
                                 start.setVisibility(View.VISIBLE);
+                                selectAlarma.setVisibility(View.GONE);
+                                aceptAlarma.setVisibility(View.GONE);
+                                cancelAlarma.setVisibility(View.GONE);
+                                selectTime.setVisibility(View.GONE);
+                                selectTime2.setVisibility(View.GONE);
                                 mp.stop();
                             }
                         })
@@ -232,7 +259,7 @@ public class ClockActivity extends AppCompatActivity {
                 .setTimeFormat(TimeFormat.CLOCK_12H)
                 .setHour(12)
                 .setMinute(0)
-                .setTitleText("Seleccionar tiempo de alarma")
+                .setTitleText("Seleccionar hora de alarma")
                 .build();
 
         picker.show(getSupportFragmentManager(), "foxandroid");
@@ -241,10 +268,11 @@ public class ClockActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(picker.getHour() > 12){
-                    binding.selectedTime.setText(String.format("%02d", String.format(String.format((picker.getHour() - 12) + " : " + String.format("%02d", picker.getMinute())+" PM"))));
-
+                    //binding.selectedTime.setText(String.format("%02d", String.format(String.format((picker.getHour() - 12) + " : " + String.format("%02d", picker.getMinute())+" PM"))));
+                    binding.selectedTime.setText(String.format("%02d",(picker.getHour()-12))+" : "+String.format("%02d",picker.getMinute())+" PM");
                 }else{
-                    binding.selectedTime.setText(picker.getHour()+" : " + picker.getMinute() + "  AM");
+                   // binding.selectedTime.setText(picker.getHour()+" : " + picker.getMinute() + "  AM");
+                    binding.selectedTime.setText(picker.getHour()+" : " + picker.getMinute() + " AM");
                 }
                 calendar = Calendar.getInstance();
                 calendar.set(Calendar.HOUR_OF_DAY, picker.getHour());

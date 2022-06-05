@@ -19,8 +19,8 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "foxandroid")
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .setContentTitle("Foxandroid Alarm Manager")
-                .setContentText("Subscribe for android related content")
+                .setContentTitle("Tiempo Finalizado")
+                .setContentText("La sesión de descanso ha finalizado, inicie una nueva sesión")
                 .setAutoCancel(true)
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)

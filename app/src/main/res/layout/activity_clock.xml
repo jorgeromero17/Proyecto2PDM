@@ -78,40 +78,39 @@
         android:textColor="@color/black"
         android:textSize="20dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/home"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.584"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/selectedTime"
-        app:layout_constraintVertical_bias="0.072" />
+        app:layout_constraintTop_toBottomOf="@+id/progress_circular" />
 
     <Button
         android:id="@+id/home"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:background="@drawable/btn_end"
-        android:text="Home"
+        android:text="Inicio"
         android:textAllCaps="false"
-        android:textColor="@color/black"
-        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:textSize="18dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.522"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/start"
-        app:layout_constraintVertical_bias="0.223" />
+        app:layout_constraintTop_toBottomOf="@+id/txtDescanso"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/agine"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/btn_start_ground"
         android:text="Reiniciar"
         android:textAllCaps="false"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.522"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/home" />
 
@@ -119,39 +118,59 @@
         android:id="@+id/selectedTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="01 : 00 AM"
         android:textAlignment="center"
         android:textColor="@color/black"
+        android:visibility="gone"
         android:textSize="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/progress_circular"
+        app:layout_constraintBottom_toTopOf="@+id/setAlarmBtn"
+        tools:layout_editor_absoluteX="-16dp" />
+
+    <TextView
+        android:id="@+id/selectedTime2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Programar tiempo de descanso"
+        android:visibility="gone"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/selectedTime"
         tools:layout_editor_absoluteX="0dp" />
 
     <Button
         android:id="@+id/selectTimeBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="64dp"
         android:layout_height="wrap_content"
-        android:text="Seleccionar hora"
-        app:layout_constraintBottom_toTopOf="@+id/setAlarmBtn"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="112dp" />
+        app:icon="@mipmap/despertador"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/setAlarmBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/setAlarmBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="64dp"
         android:layout_height="wrap_content"
-        android:text="Ajustar alarma"
-        app:layout_constraintBottom_toTopOf="@+id/cancelAlarmBtn"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="114dp" />
+        app:icon="@mipmap/cheque"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/cancelAlarmBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="64dp"
         android:layout_height="wrap_content"
-        android:text="Cancelar alarma"
+        app:icon="@mipmap/cancelar_alarma"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="114dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.37"
+        app:layout_constraintStart_toEndOf="@+id/setAlarmBtn"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
