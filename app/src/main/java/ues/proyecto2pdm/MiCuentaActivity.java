@@ -33,7 +33,8 @@ public class MiCuentaActivity extends AppCompatActivity {
     int extraIdUsuario;
     String extraNombre, extraCorreo;
 
-    Button irObjetivos, irCalendario;
+    Button buttonirobjetivos;
+    Button irCalendario;
     Button barChart;
     int idPomodoro;
 
@@ -68,7 +69,7 @@ public class MiCuentaActivity extends AppCompatActivity {
                     .requestEmail().build();
             mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
           
-            irObjetivos = (Button) findViewById(R.id.irObjetivos);
+            buttonirobjetivos = (Button) findViewById(R.id.irObjetivos);
             irObjetivos.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

@@ -48,7 +48,6 @@ public class GraficosActivity extends AppCompatActivity {
         editor = preferences.edit();
 
         id = preferences.getInt("idUsuario",0);
-        System.out.println(preferences.getInt("idUsuario",0));
 
 
         BarChart barChart = findViewById(R.id.idBarChart);

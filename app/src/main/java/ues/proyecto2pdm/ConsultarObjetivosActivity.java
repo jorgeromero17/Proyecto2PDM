@@ -3,7 +3,9 @@ package ues.proyecto2pdm;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
@@ -26,14 +28,19 @@ public class ConsultarObjetivosActivity extends AppCompatActivity {
     int extraIdUsuario;
     ControlObjetivo helper;
     ArrayList<Integer> listaIdObjetivos;
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consultar_objetivos);
 
+        preferences = this.getSharedPreferences("sesion", Context.MODE_PRIVATE);
+        editor = preferences.edit();
+
         helper = new ControlObjetivo(this);
-        extraIdUsuario = getIntent().getExtras().getInt("idUsuario");
+        extraIdUsuario = preferences.getInt("idUsuario",0);
 
         add_button = findViewById(R.id.add_button);
         add_button.setOnClickListener(new View.OnClickListener() {

@@ -27,6 +27,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 import ues.proyecto2pdm.Calendario.MainActivity;
+import ues.proyecto2pdm.ConsultarObjetivosActivity;
 import ues.proyecto2pdm.Graficos.GraficosActivity;
 import ues.proyecto2pdm.LoginActivity;
 import ues.proyecto2pdm.MiCuentaActivity;
@@ -65,7 +66,14 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        irObjetivos.setOnClickListener(view -> irActivityObjetivos());
+
+        irObjetivos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ConsultarObjetivosActivity.class);
+                startActivity(intent);
+            }
+        });
 
         barChart.setOnClickListener(new View.OnClickListener() {
             @Override
