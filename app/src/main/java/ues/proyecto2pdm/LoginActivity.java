@@ -141,7 +141,7 @@ public class LoginActivity extends AppCompatActivity {
             Usuario nuevUsuario;
             helper.abrir();
             nuevUsuario = helper.verificarUsuario(usuario);
-            helper.cerrar();
+            //helper.cerrar();
 
             irAMainActivity(nuevUsuario);
         }

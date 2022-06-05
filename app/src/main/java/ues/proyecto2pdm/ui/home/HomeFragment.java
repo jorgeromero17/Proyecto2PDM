@@ -39,7 +39,6 @@ public class HomeFragment extends Fragment {
     ImageView foto;
     Button irObjetivos, irCalendario;
     Button barChart;
-    int idPomodoro;
 
     @SuppressLint("SetTextI18n")
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
