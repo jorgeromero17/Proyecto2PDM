@@ -59,7 +59,7 @@ public class DashboardFragment extends Fragment {
         TextView today = binding.today;
         today.setText(Utils.getInstanceU().getData());
 
-        /*//CODIGO PRUEBA
+        //CODIGO PRUEBA
         intent = new Intent(getContext(), ClockActivity.class);
         Preferences = getContext().getSharedPreferences(myPref, Context.MODE_PRIVATE);
         TextView slider = binding.textslide;
@@ -106,7 +106,7 @@ public class DashboardFragment extends Fragment {
                 editor.putInt(mintAchive,0);
                 editor.commit();
             }
-        }*/
+        }
 
         return root;
     }
