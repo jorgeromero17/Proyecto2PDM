@@ -232,7 +232,7 @@ public class ClockActivity extends AppCompatActivity {
                 .setTimeFormat(TimeFormat.CLOCK_12H)
                 .setHour(12)
                 .setMinute(0)
-                .setTitleText("Seleccionar tiempo de alarma")
+                .setTitleText("Seleccionar hora de alarma")
                 .build();
 
         picker.show(getSupportFragmentManager(), "foxandroid");
@@ -241,10 +241,11 @@ public class ClockActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(picker.getHour() > 12){
-                    binding.selectedTime.setText(String.format("%02d", String.format(String.format((picker.getHour() - 12) + " : " + String.format("%02d", picker.getMinute())+" PM"))));
-
+                    //binding.selectedTime.setText(String.format("%02d", String.format(String.format((picker.getHour() - 12) + " : " + String.format("%02d", picker.getMinute())+" PM"))));
+                    binding.selectedTime.setText(String.format("%02d",(picker.getHour()-12))+" : "+String.format("%02d",picker.getMinute())+" PM");
                 }else{
-                    binding.selectedTime.setText(picker.getHour()+" : " + picker.getMinute() + "  AM");
+                   // binding.selectedTime.setText(picker.getHour()+" : " + picker.getMinute() + "  AM");
+                    binding.selectedTime.setText(picker.getHour()+" : " + picker.getMinute() + " AM");
                 }
                 calendar = Calendar.getInstance();
                 calendar.set(Calendar.HOUR_OF_DAY, picker.getHour());
