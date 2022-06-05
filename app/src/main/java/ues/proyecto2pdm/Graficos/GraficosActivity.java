@@ -2,6 +2,8 @@ package ues.proyecto2pdm.Graficos;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -34,13 +36,19 @@ public class GraficosActivity extends AppCompatActivity {
     DataBaseHelper datosDB;
     SQLiteDatabase sqLiteDatabase;
     int id;
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graficos);
 
-        id = getIntent().getExtras().getInt("idUsuario");
+        preferences = this.getSharedPreferences("sesion", Context.MODE_PRIVATE);
+        editor = preferences.edit();
+
+        id = this.preferences.getInt("idUsuario",0);
+        //id = getIntent().getExtras().getInt("idUsuario");
 
 
         BarChart barChart = findViewById(R.id.idBarChart);

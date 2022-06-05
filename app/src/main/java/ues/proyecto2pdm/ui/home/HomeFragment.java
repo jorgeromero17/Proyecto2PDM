@@ -1,7 +1,9 @@
 package ues.proyecto2pdm.ui.home;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +26,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
+import ues.proyecto2pdm.Graficos.GraficosActivity;
 import ues.proyecto2pdm.LoginActivity;
+import ues.proyecto2pdm.MiCuentaActivity;
 import ues.proyecto2pdm.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
@@ -40,6 +44,7 @@ public class HomeFragment extends Fragment {
     Button irObjetivos, irCalendario;
     Button barChart;
 
+
     @SuppressLint("SetTextI18n")
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
@@ -49,13 +54,21 @@ public class HomeFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
+
         irObjetivos = binding.irObjetivos;
         irCalendario = binding.irObjetivos3;
         barChart = binding.irBarChart;
 
         irCalendario.setOnClickListener(view -> irActivityCalendario());
         irObjetivos.setOnClickListener(view -> irActivityObjetivos());
-        barChart.setOnClickListener(view -> irActivityGraficos());
+
+        barChart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), GraficosActivity.class);
+                startActivity(intent);
+            }
+        });
 
         if(currentUser!=null){
             foto = binding.imagenUsuario;
@@ -101,9 +114,6 @@ public class HomeFragment extends Fragment {
         Toast.makeText(getContext(),"Funciono",Toast.LENGTH_SHORT).show();
     }
 
-    private void irActivityGraficos(){
-        Toast.makeText(getContext(),"funciono",Toast.LENGTH_SHORT).show();
-    }
 
     @Override
     public void onDestroyView() {
