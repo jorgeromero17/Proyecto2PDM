@@ -62,7 +62,7 @@ public class CompartirActivity extends AppCompatActivity {
     DatabaseReference miref;
     Uri FileUri;
     //variables xml
-    ImageView buttontomarfoto,buttonsubirfoto;
+    Button buttontomarfoto,buttonsubirfoto;
     Button buttonmandar;
     EditText descripcion;
     ProgressBar progressBar;
@@ -108,6 +108,7 @@ public class CompartirActivity extends AppCompatActivity {
             buttonsubirfoto.setEnabled(false);
             buttonmandar.setEnabled(false);
             buttontomarfoto.setEnabled(false);
+            descripcion.setEnabled(false);
 
             StorageReference file_name = Folder.child(System.currentTimeMillis()+""+FileUri.getLastPathSegment());
             file_name.putFile(FileUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -131,6 +132,7 @@ public class CompartirActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     Toast.makeText(CompartirActivity.this,e.getMessage(),Toast.LENGTH_LONG).show();
+                    finish();
                 }
             })
             .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {

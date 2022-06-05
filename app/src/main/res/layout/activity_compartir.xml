@@ -11,70 +11,74 @@
         android:id="@+id/texviewpublicacion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
-        android:hint="Descripción..."
+        android:hint="Agrega una descripción..."
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fotoasubir" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="10dp"
         android:backgroundTint="@color/primarySuperDarkColor"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/texviewpublicacion"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/fotoasubir"
+        tools:layout_editor_absoluteX="24dp">
 
-        <ImageView
+        <Button
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            app:icon="@drawable/ic_camera"
             android:id="@+id/buttontomarfoto"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginHorizontal="10dp"
+            android:layout_marginEnd="8dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/ic_camara" />
+            android:text="Tomar foto" />
 
-        <ImageView
+        <Button
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            app:icon="@drawable/ic_upload"
             android:id="@+id/buttonsubirfoto"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginHorizontal="10dp"
+            android:layout_marginStart="8dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/ic_foto" />
+            android:text="Cargar foto" />
     </LinearLayout>
 
     <Button
         android:id="@+id/buttonmandar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="12dp"
         android:text="Guardar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/texviewpublicacion" />
+        app:layout_constraintTop_toBottomOf="@+id/progressBar" />
 
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonmandar" />
+        app:layout_constraintTop_toBottomOf="@+id/texviewpublicacion" />
 
     <ImageView
         android:id="@+id/fotoasubir"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_defaultimage"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:layout_editor_absoluteX="24dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -121,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
     //Metodo que lo manda al Main
     void irAMainActivity(Usuario usuario){
         finish();
-        Intent intent = new Intent(LoginActivity.this,MiCuentaActivity.class);
+        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
         intent.putExtra("idUsuario",usuario.getIdUsuario());
         intent.putExtra("nombre",usuario.getNombre());
         intent.putExtra("correo",usuario.getCorreo());
