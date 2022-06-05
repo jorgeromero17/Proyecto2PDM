@@ -36,13 +36,13 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-        findViewById(R.id.buttonBarchart).setOnClickListener(new View.OnClickListener() {
+        /*findViewById(R.id.buttonBarchart).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, MainActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
     }
 
 }

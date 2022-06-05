@@ -35,6 +35,12 @@ public class HomeFragment extends Fragment {
     GoogleSignInClient mGoogleSignInClient;
     private GoogleSignInOptions gso;
 
+    TextView nombre, correo;
+    ImageView foto;
+    Button irObjetivos, irCalendario;
+    Button barChart;
+    int idPomodoro;
+
     @SuppressLint("SetTextI18n")
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
@@ -44,15 +50,24 @@ public class HomeFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        if(currentUser!=null){
-            ImageView imageView = binding.photouser;
-            TextView textView = binding.textHome;
-            textView.setText(currentUser.getDisplayName()+" "+currentUser.getEmail());
-            Picasso.get().load(currentUser.getPhotoUrl()).into(imageView);
+        irObjetivos = binding.irObjetivos;
+        irCalendario = binding.irObjetivos3;
+        barChart = binding.irBarChart;
 
-            gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestIdToken("912967255293-ug9ul30r06o7phe4ekhqugpvcri76380.apps.googleusercontent.com")
-                    .requestEmail().build();
+        irCalendario.setOnClickListener(view -> irActivityCalendario());
+        irObjetivos.setOnClickListener(view -> irActivityObjetivos());
+        barChart.setOnClickListener(view -> irActivityGraficos());
+
+        if(currentUser!=null){
+            foto = binding.imagenUsuario;
+            nombre = binding.nombreUsuario;
+            correo = binding.correoUsuario;
+
+            nombre.setText(currentUser.getDisplayName());
+            correo.setText(currentUser.getEmail());
+            Picasso.get().load(currentUser.getPhotoUrl()).into(foto);
+
+            gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken("912967255293-ug9ul30r06o7phe4ekhqugpvcri76380.apps.googleusercontent.com").requestEmail().build();
             mGoogleSignInClient = GoogleSignIn.getClient(getContext(), gso);
 
             Button logout = binding.logout;
@@ -74,7 +89,21 @@ public class HomeFragment extends Fragment {
                 }
             });
         }
+
+
         return root;
+    }
+
+    private void irActivityObjetivos() {
+        Toast.makeText(getContext(),"Funciono",Toast.LENGTH_SHORT).show();
+    }
+
+    private void irActivityCalendario() {
+        Toast.makeText(getContext(),"Funciono",Toast.LENGTH_SHORT).show();
+    }
+
+    private void irActivityGraficos(){
+        Toast.makeText(getContext(),"funciono",Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ues.proyecto2pdm">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -16,10 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Proyecto2PDM">
         <activity
-            android:name=".PublicacionesActivity"
-            android:exported="false" />
-        <activity
             android:name=".LoginActivity"
+            android:theme="@style/Theme.Proyecto2PDM.NoActionBAr"
             android:exported="false" />
         <activity
             android:name=".CrearObjetivoActivity"
@@ -37,7 +35,7 @@
             android:name=".CompartirActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".Animaciones.InicioActivity"
             android:exported="true"
             android:theme="@style/Theme.Proyecto2PDM.NoActionBAr">
             <intent-filter>
@@ -46,21 +44,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".PublicacionesActivity" />
         <activity
             android:name=".Calendario.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.Proyecto2PDM"/>
-        <activity android:name=".Calendario.WeekViewActivity"></activity>
+            android:theme="@style/Theme.Proyecto2PDM" />
+        <activity android:name=".Calendario.WeekViewActivity" />
         <activity android:name=".Calendario.EventEditActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.Proyecto2PDM"/>
+            android:theme="@style/Theme.Proyecto2PDM" />
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
