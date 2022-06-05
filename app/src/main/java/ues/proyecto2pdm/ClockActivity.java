@@ -36,7 +36,7 @@ public class ClockActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clock);
 
-        TextView timer;
+        TextView timer, descanso;
         CountDownTimer countDownTimer;
         timer = findViewById(R.id.timer);
 
@@ -45,6 +45,7 @@ public class ClockActivity extends AppCompatActivity {
         end = findViewById(R.id.End);
         home = findViewById(R.id.home);
         again = findViewById(R.id.agine);
+        descanso =findViewById(R.id.txtDescanso);
         Intent intent = getIntent();
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         mp = MediaPlayer.create(ClockActivity.this, R.raw.naturaleza);
@@ -90,6 +91,7 @@ public class ClockActivity extends AppCompatActivity {
                 end.setVisibility(View.GONE);
                 home.setVisibility(View.VISIBLE);
                 again.setVisibility(View.VISIBLE);
+                descanso.setVisibility(View.VISIBLE);
                 //DETENER MUSICA
                 mp.stop();
 
@@ -107,6 +109,7 @@ public class ClockActivity extends AppCompatActivity {
                         home.setVisibility(View.GONE);
                         again.setVisibility(View.GONE);
                         start.setVisibility(View.VISIBLE);
+                        descanso.setVisibility(View.GONE);
                     }
                 });
 
