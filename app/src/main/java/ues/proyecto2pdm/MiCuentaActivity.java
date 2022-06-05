@@ -28,6 +28,11 @@ public class MiCuentaActivity extends AppCompatActivity {
 
     TextView nombre, correo;
     ImageView foto;
+
+    Button irObjetivos;
+    int extraIdUsuario;
+    String extraNombre, extraCorreo;
+
     Button irObjetivos, irCalendario;
     Button barChart;
     int idPomodoro;
@@ -41,7 +46,11 @@ public class MiCuentaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mi_cuenta);
-        // Sacando los datos de la sesion
+
+        extraIdUsuario = getIntent().getExtras().getInt("idUsuario");
+        extraNombre = getIntent().getExtras().getString("nombre");
+        extraCorreo = getIntent().getExtras().getString("correo");
+
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
@@ -50,21 +59,21 @@ public class MiCuentaActivity extends AppCompatActivity {
             nombre = (TextView) findViewById(R.id.nombreUsuario);
             correo = (TextView) findViewById(R.id.correoUsuario);
 
-            nombre.setText(currentUser.getDisplayName());
-            nombre.setText(currentUser.getEmail());
+            nombre.setText(extraNombre);
+            nombre.setText(extraCorreo);
             Picasso.get().load(currentUser.getPhotoUrl()).into(foto);
 
             gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                     .requestIdToken("912967255293-ug9ul30r06o7phe4ekhqugpvcri76380.apps.googleusercontent.com")
                     .requestEmail().build();
             mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-
+          
             irObjetivos = (Button) findViewById(R.id.irObjetivos);
             irObjetivos.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(MiCuentaActivity.this, ConsultarObjetivosActivity.class);
+                    intent.putExtra("idUsuario",extraIdUsuario);
                     startActivity(intent);
                 }
             });

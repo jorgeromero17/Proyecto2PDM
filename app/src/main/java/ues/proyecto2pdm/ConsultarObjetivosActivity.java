@@ -1,6 +1,7 @@
 package ues.proyecto2pdm;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -10,6 +11,7 @@ import android.view.View;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 import ir.androidexception.datatable.DataTable;
@@ -21,22 +23,27 @@ public class ConsultarObjetivosActivity extends AppCompatActivity {
     FloatingActionButton add_button;
     DataTable dataTable;
     DataTableHeader header;
+    int extraIdUsuario;
+    ControlObjetivo helper;
+    ArrayList<Integer> listaIdObjetivos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consultar_objetivos);
 
-        add_button = findViewById(R.id.add_button);
+        helper = new ControlObjetivo(this);
+        extraIdUsuario = getIntent().getExtras().getInt("idUsuario");
 
+        add_button = findViewById(R.id.add_button);
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ConsultarObjetivosActivity.this, CrearObjetivoActivity.class);
+                intent.putExtra("idUsuario",extraIdUsuario);
                 startActivity(intent);
             }
         });
-
 
 
         dataTable = findViewById(R.id.data_table);
@@ -48,16 +55,33 @@ public class ConsultarObjetivosActivity extends AppCompatActivity {
     .build();
 
         ArrayList<DataTableRow> rows = new ArrayList<>();
-        // define 200 fake rows for table
-        for(int i=0;i<20;i++) {
-            Random r = new Random();
-            int random = r.nextInt(i+1);
-            int randomDiscount = r.nextInt(20);
+        if(consultarObjetivos()){
+            //Si hay objetivos
+            helper.abrir();
+            ArrayList<Objetivo> registros = helper.consultarUsuario(extraIdUsuario);
+            helper.cerrar();
+
+            Objetivo obj;
+            Iterator<Objetivo> it = registros.iterator();
+            while(it.hasNext()) {
+                obj = it.next();
+
+                DataTableRow row = new DataTableRow.Builder()
+                        .value(obj.getObjetivo())
+                        .value(obj.getEstado())
+                        .value(String.valueOf(obj.getCantPomodoros()))
+                        .build();
+                rows.add(row);
+            }
+            
+        } else{
+
+            // Si no hay objetivos
             DataTableRow row = new DataTableRow.Builder()
-                    .value("Product #" + i)
-                    .value(String.valueOf(random))
-                    .value(String.valueOf(random*1000).concat("$"))
-            .build();
+                    .value("objetivo")
+                    .value("Estado")
+                    .value("Pomodoros")
+                    .build();
             rows.add(row);
         }
 
@@ -66,4 +90,19 @@ public class ConsultarObjetivosActivity extends AppCompatActivity {
         dataTable.setRows(rows);
         dataTable.inflate(this);
     }
+
+    public boolean consultarObjetivos(){
+        helper.abrir();
+        ArrayList<Objetivo> registros = helper.consultarUsuario(extraIdUsuario);
+        helper.cerrar();
+
+        Objetivo obj;
+        if (registros == null){
+            return false;
+        }else {
+            return true;
+            }
+
+        }
+
 }

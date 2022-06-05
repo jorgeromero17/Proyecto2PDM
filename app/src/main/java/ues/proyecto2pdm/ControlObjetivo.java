@@ -86,10 +86,10 @@ public class ControlObjetivo {
     }
 
     //SELECTS
-    public ArrayList<Objetivo> consultarUsuario(){
+    public ArrayList<Objetivo> consultarUsuario(int idUsuario){
         try{
             ArrayList<Objetivo> lisUsuario = new ArrayList<>();
-            Cursor cursor = db.query("objetivo", camposObjetivo, null, null, null, null, null);
+            Cursor cursor = db.query("objetivo", camposObjetivo, "idUsuario = " + idUsuario, null, null, null, null);
 
             if(cursor.moveToFirst()){
                 do{
