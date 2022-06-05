@@ -74,7 +74,9 @@ public class MiCuentaActivity extends AppCompatActivity {
             irCalendario.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    idPomodoro = getIntent().getExtras().getInt("idUsuario");
                     Intent intent = new Intent(MiCuentaActivity.this, MainActivity.class);
+                    intent.putExtra("idUsuario",idPomodoro);
                     startActivity(intent);
                 }
             });
