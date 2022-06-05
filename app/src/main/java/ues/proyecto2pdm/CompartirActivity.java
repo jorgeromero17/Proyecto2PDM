@@ -19,6 +19,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -27,6 +28,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -47,8 +49,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import ues.proyecto2pdm.databinding.FragmentHomeBinding;
-
 public class CompartirActivity extends AppCompatActivity {
     //constantes
     private static final int PERMISSION_CAMERA_REQUEST = 3;
@@ -62,8 +62,7 @@ public class CompartirActivity extends AppCompatActivity {
     DatabaseReference miref;
     Uri FileUri;
     //variables xml
-    Button buttontomarfoto,buttonsubirfoto;
-    Button buttonmandar;
+    Button buttontomarfoto,buttonsubirfoto,buttonmandar,verpublicaciones;
     EditText descripcion;
     ProgressBar progressBar;
     ImageView imageView;
@@ -84,12 +83,20 @@ public class CompartirActivity extends AppCompatActivity {
         buttonmandar = findViewById(R.id.buttonmandar);
         progressBar = findViewById(R.id.progressBar);
         imageView = findViewById(R.id.fotoasubir);
+        verpublicaciones = findViewById(R.id.verpublicaciones);
 
         database = FirebaseDatabase.getInstance();
 
         buttontomarfoto.setOnClickListener(view -> irATomarFoto());
         buttonsubirfoto.setOnClickListener(view -> abrirArchivos());
         buttonmandar.setOnClickListener(view ->mandarDatos());
+        verpublicaciones.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CompartirActivity.this,PublicacionesActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void mandarDatos() {
@@ -123,8 +130,14 @@ public class CompartirActivity extends AppCompatActivity {
                     },1000);
 
                     Toast.makeText(CompartirActivity.this,"Subido correctamente",Toast.LENGTH_LONG).show();
-                    publicacion.setUrlimagen(taskSnapshot.getMetadata().getReference().getDownloadUrl().toString());
+
+                    Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
+                    while (!urlTask.isSuccessful());
+                    Uri downloadUrl = urlTask.getResult();
+                    publicacion.setUrlimagen(downloadUrl.toString());
+
                     miref.child(publicacion.getId()).setValue(publicacion);
+
                     finish();
                 }
             })
@@ -219,19 +232,19 @@ public class CompartirActivity extends AppCompatActivity {
 
     private void IniciarCropCamara(Uri sourceUri, Uri destinationUri) {
         UCrop.of(sourceUri, destinationUri)
-                .withMaxResultSize(500, 500)
+                .withMaxResultSize(450, 450)
                 .withAspectRatio(1, 1)
                 .withOptions(CropOpciones())
                 .start(CompartirActivity.this);
     }
 
     public void IniciarCrop(Uri uri){
-        String nombreFile = SAMPLE_CROPPED_IMAGE;
+        String nombreFile = "image";
         nombreFile +=".jpg";
         UCrop ucrop = UCrop.of(uri, Uri.fromFile(new File(getCacheDir(),nombreFile)));
         ucrop.withAspectRatio(1, 1);
 
-        ucrop.withMaxResultSize(500, 500);
+        ucrop.withMaxResultSize(450, 450);
         ucrop.withOptions(CropOpciones());
         ucrop.start(CompartirActivity.this);
 
@@ -260,7 +273,7 @@ public class CompartirActivity extends AppCompatActivity {
     private File getImageFile() throws IOException {
 
         File storageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "Camera");
-        File file = File.createTempFile(SAMPLE_CROPPED_IMAGE, ".jpg", storageDir);
+        File file = File.createTempFile("image", ".jpg", storageDir);
         currentPhotoPath = "file:" + file.getAbsolutePath();
         return file;
     }
