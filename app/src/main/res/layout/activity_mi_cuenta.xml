@@ -52,23 +52,34 @@
 
     <Button
         android:id="@+id/irObjetivos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ver objetivos"
-        android:layout_marginTop="40dp"
+        android:layout_width="227dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="56dp"
+        android:text="    Ver objetivos    "
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/correoUsuario" />
 
     <Button
-        android:id="@+id/irObjetivos3"
+        android:id="@+id/irBarChart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Ver Calendario"
+        android:text="Ver gráfica pomodoro"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/irObjetivos" />
+
+    <Button
+        android:id="@+id/irObjetivos3"
+        android:layout_width="229dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:text="Ver Calendario"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/irBarChart" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

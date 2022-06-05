@@ -20,14 +20,17 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
-
 import ues.proyecto2pdm.Calendario.MainActivity;
+import ues.proyecto2pdm.Graficos.GraficosActivity;
+
 
 public class MiCuentaActivity extends AppCompatActivity {
 
     TextView nombre, correo;
     ImageView foto;
     Button irObjetivos, irCalendario;
+    Button barChart;
+    int idPomodoro;
 
     private FirebaseAuth mAuth;
     //Variables opcionales para desloguear de google tambien private
@@ -57,11 +60,6 @@ public class MiCuentaActivity extends AppCompatActivity {
             mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
 
-
-        //Sacando los datos de la base
-
-
-
             irObjetivos = (Button) findViewById(R.id.irObjetivos);
             irObjetivos.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -77,6 +75,17 @@ public class MiCuentaActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(MiCuentaActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+            barChart = (Button) findViewById(R.id.irBarChart);
+            barChart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    idPomodoro = getIntent().getExtras().getInt("idUsuario");
+                    Intent intent = new Intent(MiCuentaActivity.this, GraficosActivity.class);
+                    intent.putExtra("idUsuario",idPomodoro);
                     startActivity(intent);
                 }
             });
