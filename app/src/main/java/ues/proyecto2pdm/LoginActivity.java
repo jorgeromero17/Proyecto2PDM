@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -36,11 +38,16 @@ public class LoginActivity extends AppCompatActivity {
     Button buttongoogle;
     ControlMiCuenta helper;
 
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        preferences = this.getSharedPreferences("sesion", Context.MODE_PRIVATE);
+        editor = preferences.edit();
         buttongoogle = findViewById(R.id.buttongoogle);
 
         // Configurar Google Sign In GoogleSignInOptions
@@ -121,10 +128,13 @@ public class LoginActivity extends AppCompatActivity {
     //Metodo que lo manda al Main
     void irAMainActivity(Usuario usuario){
         finish();
-        Intent intent = new Intent(LoginActivity.this,MiCuentaActivity.class);
-        intent.putExtra("idUsuario",usuario.getIdUsuario());
-        intent.putExtra("nombre",usuario.getNombre());
-        intent.putExtra("correo",usuario.getCorreo());
+        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+
+        editor.putInt("idUsuario",usuario.getIdUsuario());
+        editor.putString("usuario",usuario.getNombre());
+
+        editor.apply();
+
         startActivity(intent);
     }
 
@@ -141,7 +151,7 @@ public class LoginActivity extends AppCompatActivity {
             Usuario nuevUsuario;
             helper.abrir();
             nuevUsuario = helper.verificarUsuario(usuario);
-            helper.cerrar();
+            //helper.cerrar();
 
             irAMainActivity(nuevUsuario);
         }

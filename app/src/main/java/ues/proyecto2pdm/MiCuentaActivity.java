@@ -20,14 +20,22 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
+import ues.proyecto2pdm.Calendario.MainActivity;
+import ues.proyecto2pdm.Graficos.GraficosActivity;
+
 
 public class MiCuentaActivity extends AppCompatActivity {
 
     TextView nombre, correo;
     ImageView foto;
+
     Button irObjetivos;
     int extraIdUsuario;
     String extraNombre, extraCorreo;
+
+    Button irObjetivos, irCalendario;
+    Button barChart;
+    int idPomodoro;
 
     private FirebaseAuth mAuth;
     //Variables opcionales para desloguear de google tambien private
@@ -59,13 +67,36 @@ public class MiCuentaActivity extends AppCompatActivity {
                     .requestIdToken("912967255293-ug9ul30r06o7phe4ekhqugpvcri76380.apps.googleusercontent.com")
                     .requestEmail().build();
             mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
+          
             irObjetivos = (Button) findViewById(R.id.irObjetivos);
             irObjetivos.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(MiCuentaActivity.this, ConsultarObjetivosActivity.class);
                     intent.putExtra("idUsuario",extraIdUsuario);
+                    startActivity(intent);
+                }
+            });
+
+
+            irCalendario = (Button) findViewById(R.id.irObjetivos3);
+            irCalendario.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    idPomodoro = getIntent().getExtras().getInt("idUsuario");
+                    Intent intent = new Intent(MiCuentaActivity.this, MainActivity.class);
+                    intent.putExtra("idUsuario",idPomodoro);
+                    startActivity(intent);
+                }
+            });
+
+            barChart = (Button) findViewById(R.id.irBarChart);
+            barChart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    idPomodoro = getIntent().getExtras().getInt("idUsuario");
+                    Intent intent = new Intent(MiCuentaActivity.this, GraficosActivity.class);
+                    intent.putExtra("idUsuario",idPomodoro);
                     startActivity(intent);
                 }
             });

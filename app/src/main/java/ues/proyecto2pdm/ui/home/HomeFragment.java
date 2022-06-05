@@ -1,7 +1,9 @@
 package ues.proyecto2pdm.ui.home;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +26,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
+import ues.proyecto2pdm.Calendario.MainActivity;
+import ues.proyecto2pdm.Graficos.GraficosActivity;
 import ues.proyecto2pdm.LoginActivity;
+import ues.proyecto2pdm.MiCuentaActivity;
 import ues.proyecto2pdm.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
@@ -35,6 +40,11 @@ public class HomeFragment extends Fragment {
     GoogleSignInClient mGoogleSignInClient;
     private GoogleSignInOptions gso;
 
+    TextView nombre, correo;
+    ImageView foto;
+    Button irObjetivos, irCalendario;
+    Button barChart;
+
     @SuppressLint("SetTextI18n")
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
@@ -44,15 +54,37 @@ public class HomeFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        if(currentUser!=null){
-            ImageView imageView = binding.photouser;
-            TextView textView = binding.textHome;
-            textView.setText(currentUser.getDisplayName()+" "+currentUser.getEmail());
-            Picasso.get().load(currentUser.getPhotoUrl()).into(imageView);
+        irObjetivos = binding.irObjetivos;
+        irCalendario = binding.irObjetivos3;
+        barChart = binding.irBarChart;
 
-            gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestIdToken("912967255293-ug9ul30r06o7phe4ekhqugpvcri76380.apps.googleusercontent.com")
-                    .requestEmail().build();
+        irCalendario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(),MainActivity.class);
+                startActivity(intent);
+            }
+        });
+        irObjetivos.setOnClickListener(view -> irActivityObjetivos());
+
+        barChart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), GraficosActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        if(currentUser!=null){
+            foto = binding.imagenUsuario;
+            nombre = binding.nombreUsuario;
+            correo = binding.correoUsuario;
+
+            nombre.setText(currentUser.getDisplayName());
+            correo.setText(currentUser.getEmail());
+            Picasso.get().load(currentUser.getPhotoUrl()).into(foto);
+
+            gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken("912967255293-ug9ul30r06o7phe4ekhqugpvcri76380.apps.googleusercontent.com").requestEmail().build();
             mGoogleSignInClient = GoogleSignIn.getClient(getContext(), gso);
 
             Button logout = binding.logout;
@@ -74,8 +106,19 @@ public class HomeFragment extends Fragment {
                 }
             });
         }
+
+
         return root;
     }
+
+    private void irActivityObjetivos() {
+        Toast.makeText(getContext(),"Funciono",Toast.LENGTH_SHORT).show();
+    }
+
+    private void irActivityCalendario() {
+        Toast.makeText(getContext(),"Funciono",Toast.LENGTH_SHORT).show();
+    }
+
 
     @Override
     public void onDestroyView() {
