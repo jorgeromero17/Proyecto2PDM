@@ -5,18 +5,32 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.material.timepicker.MaterialTimePicker;
+import com.google.android.material.timepicker.TimeFormat;
+
+import java.util.Calendar;
+
+import ues.proyecto2pdm.databinding.ActivityClockBinding;
+import ues.proyecto2pdm.databinding.ActivityMainBinding;
 import ues.proyecto2pdm.ui.dashboard.DashboardFragment;
 
 public class ClockActivity extends AppCompatActivity {
@@ -30,11 +44,39 @@ public class ClockActivity extends AppCompatActivity {
 
     //MUSICA
     MediaPlayer mp;
+    //PARA ALARMA
+    private ActivityClockBinding binding;
+    private MaterialTimePicker picker;
+    private Calendar calendar;
+    private AlarmManager alarmManager;
+    private PendingIntent pendingIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_clock);
+        binding = ActivityClockBinding.inflate(getLayoutInflater());
+        //setContentView(R.layout.activity_clock);
+        setContentView(binding.getRoot());
+        createNotificationChannel();
+        binding.selectTimeBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                showTimePicker();
+            }
+        });
+        binding.setAlarmBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                setAlarm();
+            }
+        });
+        binding.cancelAlarmBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                cancelAlarm();
+            }
+        });
+
 
         TextView timer, descanso;
         CountDownTimer countDownTimer;
@@ -163,6 +205,69 @@ public class ClockActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void cancelAlarm() {
+        Intent intent = new Intent(this, AlarmReceiver.class);
+        pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+
+        if(alarmManager == null){
+            alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        }
+        alarmManager.cancel(pendingIntent);
+        Toast.makeText(this, "Alarma Cancelada", Toast.LENGTH_SHORT).show();
+    }
+
+    private void setAlarm() {
+        alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, AlarmReceiver.class);
+        pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+
+        Toast.makeText(this, "Alarma establecida satisfactoriamente", Toast.LENGTH_SHORT).show();
+    }
+
+    private void showTimePicker() {
+        picker = new MaterialTimePicker.Builder()
+                .setTimeFormat(TimeFormat.CLOCK_12H)
+                .setHour(12)
+                .setMinute(0)
+                .setTitleText("Seleccionar tiempo de alarma")
+                .build();
+
+        picker.show(getSupportFragmentManager(), "foxandroid");
+
+        picker.addOnPositiveButtonClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(picker.getHour() > 12){
+                    binding.selectedTime.setText(String.format("%02d", String.format(String.format((picker.getHour() - 12) + " : " + String.format("%02d", picker.getMinute())+" PM"))));
+
+                }else{
+                    binding.selectedTime.setText(picker.getHour()+" : " + picker.getMinute() + "  AM");
+                }
+                calendar = Calendar.getInstance();
+                calendar.set(Calendar.HOUR_OF_DAY, picker.getHour());
+                calendar.set(Calendar.MINUTE, picker.getMinute());
+                calendar.set(Calendar.SECOND, 0);
+                calendar.set(Calendar.MILLISECOND, 0);
+
+            }
+        });
+    }
+
+    private void createNotificationChannel() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "foxandroidReminderChannel";
+            String description = "Channel For Alarm Manager";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel("foxandroid", name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+
+        }
     }
 
     @Override

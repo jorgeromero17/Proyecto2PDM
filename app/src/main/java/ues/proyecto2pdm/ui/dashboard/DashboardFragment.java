@@ -1,8 +1,11 @@
 package ues.proyecto2pdm.ui.dashboard;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,10 +16,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-
-import org.w3c.dom.Text;
-
-import java.time.Clock;
 
 import ues.proyecto2pdm.ClockActivity;
 import ues.proyecto2pdm.CompartirActivity;
@@ -60,7 +59,7 @@ public class DashboardFragment extends Fragment {
         TextView today = binding.today;
         today.setText(Utils.getInstanceU().getData());
 
-        //CODIGO PRUEBA
+        /*//CODIGO PRUEBA
         intent = new Intent(getContext(), ClockActivity.class);
         Preferences = getContext().getSharedPreferences(myPref, Context.MODE_PRIVATE);
         TextView slider = binding.textslide;
@@ -107,7 +106,7 @@ public class DashboardFragment extends Fragment {
                 editor.putInt(mintAchive,0);
                 editor.commit();
             }
-        }
+        }*/
 
         return root;
     }

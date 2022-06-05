@@ -17,7 +17,7 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.219" />
+        app:layout_constraintVertical_bias="0.097" />
 
     <TextView
         android:id="@+id/timer"
@@ -28,29 +28,28 @@
         android:textSize="35dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.315" />
+        app:layout_constraintVertical_bias="0.235" />
 
     <Button
+        android:id="@+id/start"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:id="@+id/start"
+        android:background="@drawable/btn_start_ground"
         android:text="Start"
-        android:visibility="visible"
-        android:textSize="20dp"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:background="@drawable/btn_start_ground"
+        android:textSize="20dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progress_circular"
-        app:layout_constraintVertical_bias="0.209"
-        />
+        app:layout_constraintVertical_bias="0.275" />
 
     <Button
         android:layout_width="120dp"
@@ -81,9 +80,9 @@
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/home"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.471"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progress_circular" />
+        app:layout_constraintTop_toBottomOf="@+id/selectedTime"
+        app:layout_constraintVertical_bias="0.072" />
 
     <Button
         android:id="@+id/home"
@@ -100,20 +99,59 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/start"
-        app:layout_constraintVertical_bias="0.209" />
+        app:layout_constraintVertical_bias="0.223" />
 
     <Button
         android:id="@+id/agine"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="4dp"
         android:background="@drawable/btn_start_ground"
         android:text="Reiniciar"
-        android:visibility="gone"
         android:textAllCaps="false"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/home" />
+
+    <TextView
+        android:id="@+id/selectedTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="01 : 00 AM"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/progress_circular"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <Button
+        android:id="@+id/selectTimeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Seleccionar hora"
+        app:layout_constraintBottom_toTopOf="@+id/setAlarmBtn"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="112dp" />
+
+    <Button
+        android:id="@+id/setAlarmBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ajustar alarma"
+        app:layout_constraintBottom_toTopOf="@+id/cancelAlarmBtn"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="114dp" />
+
+    <Button
+        android:id="@+id/cancelAlarmBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancelar alarma"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="114dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
