@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +43,7 @@ public class ClockActivity extends AppCompatActivity {
     int value = 0;
     String fecha;
     int idUser=0;
+    int i=0;
 
     public static final String number = "Value";
     public static final String myPref = "pref";
@@ -92,7 +94,8 @@ public class ClockActivity extends AppCompatActivity {
         TextView timer, descanso;
         CountDownTimer countDownTimer;
         timer = findViewById(R.id.timer);
-
+        ProgressBar progreso = findViewById(R.id.progress_circular_clock);
+        progreso.setProgress(0);
         Button start, end, home, again, compartir;
         start = findViewById(R.id.start);
         end = findViewById(R.id.End);
@@ -142,12 +145,15 @@ public class ClockActivity extends AppCompatActivity {
                     else
                         timer.setText(String.valueOf(millisUntilFinished / 1000 / 60) + " : " + String.valueOf(millisUntilFinished / 1000 % 60));
                 }
+                i++;
+                progreso.setProgress((int)i*100/(seconds/1000));
             }
 
             @SuppressLint("ResourceAsColor")
             @Override
             public void onFinish() {
                 timer.setText("Finalizado");
+                progreso.setProgress(100);
                 SharedPreferences preferences = getSharedPreferences(myPref, MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
 
@@ -187,12 +193,15 @@ public class ClockActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         startActivity(new Intent(ClockActivity.this, MainActivity.class));
+                        progreso.setProgress(0);
                         finish();
                     }
                 });
                 again.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        i=0;
+                        progreso.setProgress(0);
                         timer.setText(value + ": 00");
                         home.setVisibility(View.GONE);
                         again.setVisibility(View.GONE);
@@ -214,6 +223,7 @@ public class ClockActivity extends AppCompatActivity {
 
                 NotificationManagerCompat manager = NotificationManagerCompat.from(ClockActivity.this);
                 manager.notify(1, builder.build());
+                i=0;
             }
         };
 
@@ -239,6 +249,8 @@ public class ClockActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 countDownTimer.cancel();
+                                i=0;
+                                progreso.setProgress(0);
                                 timer.setText(value + " : 00");
                                 end.setVisibility(View.GONE);
                                 start.setVisibility(View.VISIBLE);
