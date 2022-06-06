@@ -1,5 +1,6 @@
 package ues.proyecto2pdm;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -63,5 +64,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery("Select fecha FROM pomodoro where idPomodoro = ?",idPomodoro);
         return c;
+    }
+
+    public void insertar(Pomodoro pomodoro){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues pom = new ContentValues();
+        pom.put("idUsuario", pomodoro.getIdUsuario());
+        pom.put("fecha", pomodoro.getFecha());
+        db.insert("pomodoro", null, pom);
     }
 }

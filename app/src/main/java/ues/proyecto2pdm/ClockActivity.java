@@ -15,6 +15,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.database.sqlite.SQLiteDatabase;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -37,10 +38,14 @@ public class ClockActivity extends AppCompatActivity {
 
     int seconds = 0;
     int value = 0;
+    String fecha;
+    int idUser=0;
 
     public static final String number = "Value";
     public static final String myPref = "pref";
     public static final String mintAchive = "mints";
+
+
 
     //MUSICA
     MediaPlayer mp;
@@ -50,6 +55,10 @@ public class ClockActivity extends AppCompatActivity {
     private Calendar calendar;
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
+
+    //PARA INSERTAR REGISTRO
+    DataBaseHelper db;
+    SQLiteDatabase sqLiteDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +111,9 @@ public class ClockActivity extends AppCompatActivity {
         //TEXTVIEWS
         selectTime = findViewById(R.id.selectedTime);
         selectTime2 = findViewById(R.id.selectedTime2);
-
+        //BASE DE DATOS
+        //PARA INSERTAR UN NUEVO REGISTRO POMODORO
+        db = new DataBaseHelper(this);
         value = intent.getIntExtra(number, -1);
         if (value != -1) {
             timer.setText(value + " : 00");
@@ -135,6 +146,18 @@ public class ClockActivity extends AppCompatActivity {
                 timer.setText("Finalizado");
                 SharedPreferences preferences = getSharedPreferences(myPref, MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
+
+                SharedPreferences preferencesLogin = getSharedPreferences("sesion",MODE_PRIVATE);
+
+                idUser = preferencesLogin.getInt("idUsuario", 0);
+                fecha = preferences.getString("day", "");
+                Pomodoro pom = new Pomodoro();
+                pom.setFecha(fecha);
+                pom.setIdPomodoro(1);
+                pom.setIdUsuario(idUser);
+
+                db.insertar(pom);
+
                 int lastValue = preferences.getInt(mintAchive, -1);
                 if (lastValue != -1) ;
                 {
