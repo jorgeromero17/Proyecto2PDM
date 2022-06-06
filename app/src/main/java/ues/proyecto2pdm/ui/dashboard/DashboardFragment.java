@@ -41,8 +41,6 @@ public class DashboardFragment extends Fragment {
         View root = binding.getRoot();
 
 
-        final Button buttoncompartir = binding.buttoncompartir;
-        buttoncompartir.setOnClickListener(view -> irACompartir());
         final TextView textView = binding.textDashboard;
         dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
@@ -124,10 +122,7 @@ public class DashboardFragment extends Fragment {
         intent.putExtra(number, 1);
         startActivity(intent);
     }
-    private void irACompartir() {
-        Intent intent = new Intent(getContext(), CompartirActivity.class);
-        startActivity(intent);
-    }
+
 
     @Override
     public void onDestroyView() {

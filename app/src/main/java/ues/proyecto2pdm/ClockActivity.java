@@ -16,7 +16,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -45,16 +47,16 @@ public class ClockActivity extends AppCompatActivity {
     public static final String myPref = "pref";
     public static final String mintAchive = "mints";
 
-
-
     //MUSICA
-    MediaPlayer mp;
+    MediaPlayer mp, notificacion;
+
     //PARA ALARMA
     private ActivityClockBinding binding;
     private MaterialTimePicker picker;
     private Calendar calendar;
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
+    private Button play;
 
     //PARA INSERTAR REGISTRO
     DataBaseHelper db;
@@ -85,26 +87,28 @@ public class ClockActivity extends AppCompatActivity {
                 cancelAlarm();
             }
         });
-
+        binding.buttoncompartir.setOnClickListener(view->irACompartir());
 
         TextView timer, descanso;
         CountDownTimer countDownTimer;
         timer = findViewById(R.id.timer);
 
-        Button start, end, home, again;
+        Button start, end, home, again, compartir;
         start = findViewById(R.id.start);
         end = findViewById(R.id.End);
         home = findViewById(R.id.home);
         again = findViewById(R.id.agine);
         descanso =findViewById(R.id.txtDescanso);
+        compartir = findViewById(R.id.buttoncompartir);
         Intent intent = getIntent();
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         //MEDIAPLAYER PARA MUSICA
         mp = MediaPlayer.create(ClockActivity.this, R.raw.naturaleza);
+        notificacion = MediaPlayer.create(ClockActivity.this, R.raw.windows_notificacion);
         //ELEMENTOS DE LA ALARMA
         Button selectAlarma, aceptAlarma, cancelAlarma;
         TextView selectTime, selectTime2;
-        //BOTONES
+       //BOTONES
         selectAlarma = findViewById(R.id.selectTimeBtn);
         aceptAlarma = findViewById(R.id.setAlarmBtn);
         cancelAlarma = findViewById(R.id.cancelAlarmBtn);
@@ -174,9 +178,11 @@ public class ClockActivity extends AppCompatActivity {
                 cancelAlarma.setVisibility(View.VISIBLE);
                 selectTime.setVisibility(View.VISIBLE);
                 selectTime2.setVisibility(View.VISIBLE);
+                compartir.setVisibility(View.VISIBLE);
                 //DETENER MUSICA
                 mp.stop();
-
+                //LANZAR SONIDO DE NOTIFICACION
+                notificacion.start();
                 home.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -197,10 +203,9 @@ public class ClockActivity extends AppCompatActivity {
                         cancelAlarma.setVisibility(View.GONE);
                         selectTime.setVisibility(View.GONE);
                         selectTime2.setVisibility(View.GONE);
+                        compartir.setVisibility(View.GONE);
                     }
                 });
-
-
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(ClockActivity.this, "channel")
                         .setContentTitle("Pomodoro")
                         .setSmallIcon(R.mipmap.screenicon)
@@ -242,6 +247,7 @@ public class ClockActivity extends AppCompatActivity {
                                 cancelAlarma.setVisibility(View.GONE);
                                 selectTime.setVisibility(View.GONE);
                                 selectTime2.setVisibility(View.GONE);
+                                compartir.setVisibility(View.GONE);
                                 mp.stop();
                             }
                         })
@@ -252,7 +258,6 @@ public class ClockActivity extends AppCompatActivity {
                             }
                         });
                 builder.create().show();
-
             }
         });
     }
@@ -317,10 +322,12 @@ public class ClockActivity extends AppCompatActivity {
 
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
-
         }
     }
-
+    private void irACompartir() {
+        Intent intent = new Intent(ClockActivity.this, CompartirActivity.class);
+        startActivity(intent);
+    }
     @Override
     public void onBackPressed() {
         mp.stop();
