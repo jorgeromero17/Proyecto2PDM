@@ -12,8 +12,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Today"
-        android:textColor="@color/black"
-        android:textSize="20dp"
+        android:textColor="@color/primaryDarkColor"
+        android:textSize="38sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -43,37 +44,37 @@
 
         <Button
             android:id="@+id/btnOneMinute"
-            android:layout_width="wrap_content"
+            android:layout_width="98dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="84dp"
+            android:layout_marginStart="79dp"
             android:layout_marginEnd="231dp"
             android:background="@drawable/circle_mints"
             android:text="1 M"
-            android:textColor="@color/black"
+            android:textColor="@color/close"
             android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnVeinticinco"
-            android:layout_width="wrap_content"
+            android:layout_width="98dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="216dp"
-            android:layout_marginEnd="99dp"
+            android:layout_marginEnd="89dp"
             android:background="@drawable/circle_mints"
             android:text="25 M"
-            android:textColor="@color/black"
+            android:textColor="@color/close"
             android:textStyle="bold" />
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/relativeLayout2"
         android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:gravity="center"
+        android:layout_height="70dp"
         android:layout_marginTop="10dp"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
@@ -81,12 +82,13 @@
 
         <TextView
             android:id="@+id/textView2"
-            android:textSize="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:text="Logro de hoy : "
-            android:textColor="@color/Red" />
+            android:textColor="@color/primaryColor"
+            android:textSize="25dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/mints"
@@ -94,26 +96,28 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/textView2"
             android:text="0 M"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="25sp" />
     </RelativeLayout>
 
     <TextView
         android:id="@+id/textslide"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="423dp"
+        android:layout_height="81dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="12dp"
+        android:background="#FFCAD3"
+        android:backgroundTint="#FFCAD3"
         android:gravity="center"
         android:text="Un sueño no se hace realidad por arte de magia, necesita sudor, determinación y trabajo duro"
-        android:textColor="@color/black"
-        android:textSize="15dp"
+        android:textColor="@color/close"
+        android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout2"
-        app:layout_constraintVertical_bias="0.058" />
+        app:layout_constraintVertical_bias="0.252" />
 
     <TextView
         android:id="@+id/text_dashboard"

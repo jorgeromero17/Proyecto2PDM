@@ -12,12 +12,13 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="8dp"
-        android:text="Calendario donde puedes anotar sobre tú día a día"
+        android:text="Calendario"
         android:textAlignment="center"
-        android:textSize="20sp"
+        android:textColor="#ff667a"
+        android:textSize="34sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +29,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:background="@color/primaryLightColor">
 
 
@@ -46,12 +47,12 @@
         <TextView
             android:id="@+id/monthYearTV"
             android:layout_width="0dp"
-            android:layout_weight="2"
             android:layout_height="wrap_content"
+            android:layout_weight="2"
             android:text="Feb 2021"
-            android:textSize="18sp"
             android:textAlignment="center"
-            android:textColor="@color/black"/>
+            android:textColor="@color/close"
+            android:textSize="18sp" />
 
         <Button
             android:layout_width="46dp"
@@ -161,10 +162,10 @@
         <TextView
             android:id="@+id/info"
             android:layout_width="match_parent"
-            android:layout_height="72dp"
+            android:layout_height="40dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="4dp"
             android:text="Entra a la semana para ver tus apuntes"
             android:textAlignment="center"
             android:textSize="20sp"
@@ -174,15 +175,16 @@
     </LinearLayout>
 
     <Button
-        android:layout_width="181dp"
-        android:layout_height="wrap_content"
+        android:layout_width="362dp"
+        android:layout_height="80dp"
         android:layout_gravity="center"
         android:background="@null"
         android:onClick="weeklyAction"
         android:text="Ver semana"
-        android:textColor="@color/primarySuperDarkColor"
+        android:textColor="@color/close"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:icon="@drawable/testigo" />
 
 </LinearLayout>
 

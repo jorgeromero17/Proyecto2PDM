@@ -51,7 +51,7 @@ public class GraficosActivity extends AppCompatActivity {
 
 
         BarChart barChart = findViewById(R.id.idBarChart);
-        BarDataSet barDataSet = new BarDataSet(getDatosBar(),"datos");
+        BarDataSet barDataSet = new BarDataSet(getDatosBar(),"Pomodoros");
         barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
         barDataSet.setValueTextColor(Color.BLACK);
         barDataSet.setValueTextSize(16f);

@@ -14,9 +14,10 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:textAlignment="center"
         android:text="¡Puedes ingresar una nota en el día que prefieras!"
+        android:textAlignment="center"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,12 +45,12 @@
         <TextView
             android:id="@+id/monthYearTV"
             android:layout_width="0dp"
-            android:layout_weight="2"
             android:layout_height="wrap_content"
+            android:layout_weight="2"
             android:text="Feb 2021"
-            android:textSize="18sp"
             android:textAlignment="center"
-            android:textColor="@color/black"/>
+            android:textColor="@color/close"
+            android:textSize="18sp" />
 
         <Button
             android:layout_width="25dp"
@@ -147,14 +148,14 @@
 
 
     <Button
-        android:layout_width="297dp"
-        android:layout_height="wrap_content"
+        android:layout_width="291dp"
+        android:layout_height="63dp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:background="@null"
         android:onClick="newEventAction"
         android:text="Agregar Nota"
-        android:textColor="@color/primarySuperDarkColor"
+        android:textColor="@color/ic_launcher_background"
         android:textSize="15sp" />
 
 
@@ -167,7 +168,8 @@
         android:text="Notas del día seleccionado"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="25sp" />
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <ListView
         android:id="@+id/eventListView"
