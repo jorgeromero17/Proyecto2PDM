@@ -17,10 +17,9 @@
         android:progressDrawable="@drawable/circle_bar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3" />
+        app:layout_constraintVertical_bias="0.115" />
 
     <TextView
         android:id="@+id/timer"
@@ -29,11 +28,10 @@
         android:text="10 : 00"
         android:textColor="@color/black"
         android:textSize="35dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.378" />
+        app:layout_constraintBottom_toBottomOf="@+id/progress_circular_clock"
+        app:layout_constraintEnd_toEndOf="@+id/progress_circular_clock"
+        app:layout_constraintStart_toStartOf="@+id/progress_circular_clock"
+        app:layout_constraintTop_toTopOf="@+id/progress_circular_clock" />
 
     <Button
         android:id="@+id/start"
@@ -49,29 +47,27 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progress_circular_clock"
-        app:layout_constraintVertical_bias="0.105" />
+        app:layout_constraintVertical_bias="0.05" />
 
     <Button
+        android:id="@+id/End"
         android:layout_width="191dp"
         android:layout_height="63dp"
         android:layout_marginTop="32dp"
-        android:id="@+id/End"
+        android:background="@drawable/btn_start_ground"
         android:text="Finalizar"
-        android:visibility="gone"
-        android:textSize="20dp"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:background="@drawable/btn_start_ground"
+        android:textSize="20dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progress_circular_clock"
-        app:layout_constraintVertical_bias="0.105"
-        />
+        app:layout_constraintVertical_bias="0.105" />
 
     <TextView
         android:id="@+id/txtDescanso"
