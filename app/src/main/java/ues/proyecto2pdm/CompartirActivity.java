@@ -54,7 +54,6 @@ public class CompartirActivity extends AppCompatActivity {
     private static final int PERMISSION_CAMERA_REQUEST = 3;
     private static final int IMAGE_CAMERA_REQUEST = 2;
     private static final int PICK_MAGE_REQUEST = 1 ;
-    private static final String SAMPLE_CROPPED_IMAGE = "SampleCropImg";
     //variables base de datos
     private FirebaseAuth mAuth;
     FirebaseUser currentUser;
@@ -76,6 +75,7 @@ public class CompartirActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
 
         buttontomarfoto = findViewById(R.id.buttontomarfoto);
         buttonsubirfoto = findViewById(R.id.buttonsubirfoto);
@@ -83,32 +83,26 @@ public class CompartirActivity extends AppCompatActivity {
         buttonmandar = findViewById(R.id.buttonmandar);
         progressBar = findViewById(R.id.progressBar);
         imageView = findViewById(R.id.fotoasubir);
-        verpublicaciones = findViewById(R.id.verpublicaciones);
 
         database = FirebaseDatabase.getInstance();
 
         buttontomarfoto.setOnClickListener(view -> irATomarFoto());
         buttonsubirfoto.setOnClickListener(view -> abrirArchivos());
         buttonmandar.setOnClickListener(view ->mandarDatos());
-        verpublicaciones.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(CompartirActivity.this,PublicacionesActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     private void mandarDatos() {
         miref = database.getReference("Publicaciones");
         StorageReference Folder = FirebaseStorage.getInstance().getReference().child("imagenespublicaciones");
 
-        String fecha = getFechaHora();
+        String codigo = getCodigo();
         Publicacion publicacion = new Publicacion();
-        publicacion.setId(fecha+""+currentUser.getDisplayName().replace(" ",""));
+        publicacion.setFecha(getFecha());
+        publicacion.setId(codigo+""+currentUser.getDisplayName().replace(" ",""));
         publicacion.setDescripcion(descripcion.getText().toString());
         publicacion.setLikes(0);
         publicacion.setNombreusuario(currentUser.getDisplayName());
+        publicacion.setUrlImagenUsuario(currentUser.getPhotoUrl().toString());
 
         if(FileUri!=null){
 
@@ -264,11 +258,18 @@ public class CompartirActivity extends AppCompatActivity {
 
     }
 
-    private String getFechaHora() {
+    private String getFecha() {
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
+    private String getCodigo() {
         DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
         Date date = new Date();
         return dateFormat.format(date);
     }
+
 
     private File getImageFile() throws IOException {
 

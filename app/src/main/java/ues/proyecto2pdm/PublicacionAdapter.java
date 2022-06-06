@@ -35,6 +35,7 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
         holder.pubdescripcion.setText(publicacionActual.getDescripcion());
         holder.pubnombreusuario.setText(publicacionActual.getNombreusuario());
         Picasso.get().load(publicacionActual.getUrlimagen()).into(holder.pubimagen);
+        Picasso.get().load(publicacionActual.getUrlImagenUsuario()).into(holder.pubimagenusuario);
     }
 
     @Override
@@ -47,6 +48,7 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
         public TextView pubdescripcion;
         public ImageView pubimagen;
         public TextView pubnombreusuario;
+        public ImageView pubimagenusuario;
 
 
         public PublicacionViewHolder(View itemView) {
@@ -54,6 +56,7 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
             pubdescripcion = itemView.findViewById(R.id.pubdescripcion);
             pubimagen = itemView.findViewById(R.id.pubimagen);
             pubnombreusuario = itemView.findViewById(R.id.pubnombreusuario);
+            pubimagenusuario = itemView.findViewById(R.id.pubimagenusuario);
         }
     }
 }
