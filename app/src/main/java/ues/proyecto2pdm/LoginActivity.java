@@ -25,6 +25,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.pranavpandey.android.dynamic.toasts.DynamicToast;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -85,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }else{
                 Log.d(TAG, "Error, login no exitoso:" + task.getException().toString());
-                Toast.makeText(this, "Ocurrio un error. "+task.getException().toString(), Toast.LENGTH_LONG).show();
+                DynamicToast.makeError(this, "Ocurrio un error."+task.getException().toString()).show();
             }
         }
     }

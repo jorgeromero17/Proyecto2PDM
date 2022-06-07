@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.pranavpandey.android.dynamic.toasts.DynamicToast;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -88,12 +90,13 @@ public class CrearObjetivoActivity extends AppCompatActivity {
                     regInsertados = helper.insertar(obj);
                     helper.cerrar();
 
-                    Toast.makeText(CrearObjetivoActivity.this, regInsertados, Toast.LENGTH_LONG).show();
+                    DynamicToast.makeSuccess(CrearObjetivoActivity.this, regInsertados).show();
                     Intent intent = new Intent(CrearObjetivoActivity.this, ConsultarObjetivosActivity.class);
                     intent.putExtra("idUsuario",extraIdUsuario);
                     startActivity(intent);
                 }else {
-                    Toast.makeText(CrearObjetivoActivity.this, "Debe llenar los campos", Toast.LENGTH_LONG).show();
+                    DynamicToast.makeWarning(CrearObjetivoActivity.this, "Debe llenar los campos").show();
+
                 }
 
             }

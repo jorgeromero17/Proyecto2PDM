@@ -25,6 +25,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.pranavpandey.android.dynamic.toasts.DynamicToast;
 
 import java.util.ArrayList;
 
@@ -51,7 +52,7 @@ public class GraficosActivity extends AppCompatActivity {
 
 
         BarChart barChart = findViewById(R.id.idBarChart);
-        BarDataSet barDataSet = new BarDataSet(getDatosBar(),"Pomodoros");
+        BarDataSet barDataSet = new BarDataSet(getDatosBar(id),"Pomodoros");
         barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
         barDataSet.setValueTextColor(Color.BLACK);
         barDataSet.setValueTextSize(16f);
@@ -76,8 +77,8 @@ public class GraficosActivity extends AppCompatActivity {
            e.getData();
 
            String id = getDato((int)e.getX());
-           Toast toast = Toast.makeText(getApplicationContext(), id, Toast.LENGTH_SHORT);
-           toast.show();
+           DynamicToast.make(getApplicationContext(), id,Color.WHITE, Color.rgb(255,102,122)).show();
+
        }
        @Override
        public void onNothingSelected() {
@@ -102,7 +103,7 @@ public class GraficosActivity extends AppCompatActivity {
         db.close();
         return dataVals;
     }
-    private ArrayList<BarEntry> getDatosBar(){
+    private ArrayList<BarEntry> getDatosBar(int id){
 
         datosDB = new DataBaseHelper(this);
         SQLiteDatabase db = datosDB.getWritableDatabase();

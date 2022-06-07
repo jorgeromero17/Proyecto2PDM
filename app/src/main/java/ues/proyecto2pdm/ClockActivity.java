@@ -30,6 +30,7 @@ import android.widget.Toast;
 
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
+import com.pranavpandey.android.dynamic.toasts.DynamicToast;
 
 import java.util.Calendar;
 
@@ -282,7 +283,7 @@ public class ClockActivity extends AppCompatActivity {
             alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         }
         alarmManager.cancel(pendingIntent);
-        Toast.makeText(this, "Alarma Cancelada", Toast.LENGTH_SHORT).show();
+        DynamicToast.makeError(this, "Alarma Cancelada").show();
     }
 
     private void setAlarm() {
@@ -291,7 +292,7 @@ public class ClockActivity extends AppCompatActivity {
         pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 
-        Toast.makeText(this, "Alarma establecida satisfactoriamente", Toast.LENGTH_SHORT).show();
+        DynamicToast.makeSuccess(this, "Alarma establecida satisfactoriamente").show();
     }
 
     private void showTimePicker() {

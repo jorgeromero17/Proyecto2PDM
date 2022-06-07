@@ -37,10 +37,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     ");");
             db.execSQL("CREATE TABLE pomodoro (idPomodoro INTEGER PRIMARY KEY AUTOINCREMENT, idUsuario INTEGER, fecha VARCHAR(10));");
             db.execSQL("CREATE TABLE objetivo (idObjetivo INTEGER PRIMARY KEY AUTOINCREMENT, idUsuario INTEGER NOT NULL, objetivo VARCHAR(255) NOT NULL,estado VARCHAR(15) NOT NULL, cantPomodoro INTEGER);");
-            db.execSQL("INSERT INTO pomodoro VALUES(1,1,'3/06/2022')");
-            db.execSQL("INSERT INTO pomodoro VALUES(2,1,'3/06/2022')");
-            db.execSQL("INSERT INTO pomodoro VALUES(3,1,'4/06/2022')");
-            db.execSQL("INSERT INTO pomodoro VALUES(4,2,'5/06/2022')");
+            db.execSQL("INSERT INTO pomodoro VALUES(1,1,'04-jun.-2022')");
+            db.execSQL("INSERT INTO pomodoro VALUES(2,1,'04-jun.-2022')");
+            db.execSQL("INSERT INTO pomodoro VALUES(3,1,'05-jun.-2022')");
 
         } catch (SQLException e){
             e.printStackTrace();

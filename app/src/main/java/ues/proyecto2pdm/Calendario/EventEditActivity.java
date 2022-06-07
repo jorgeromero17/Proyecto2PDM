@@ -11,6 +11,8 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.pranavpandey.android.dynamic.toasts.DynamicToast;
+
 import java.time.LocalTime;
 
 import ues.proyecto2pdm.Graficos.GraficosActivity;
@@ -67,7 +69,7 @@ public class EventEditActivity extends AppCompatActivity
         id = helper.obtenerUltimo();
 
         e = helper.verUltimo(id);
-        Toast.makeText(this, regInsertados, Toast.LENGTH_SHORT).show();
+        DynamicToast.makeSuccess(this, regInsertados).show();
         Event newEvent = new Event();
         newEvent.setName(e.getName());
         newEvent.setDate(e.getDate());

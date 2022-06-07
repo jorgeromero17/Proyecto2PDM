@@ -60,5 +60,6 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.8'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.airbnb.android:lottie:5.2.0'
+    implementation 'com.pranavpandey.android:dynamic-toasts:4.1.1'
 
 }

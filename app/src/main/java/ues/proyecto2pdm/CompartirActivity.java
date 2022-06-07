@@ -37,6 +37,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.pranavpandey.android.dynamic.toasts.DynamicToast;
 import com.squareup.picasso.Picasso;
 import com.yalantis.ucrop.UCrop;
 
@@ -122,8 +123,7 @@ public class CompartirActivity extends AppCompatActivity {
                             progressBar.setProgress(0);
                         }
                     },1000);
-
-                    Toast.makeText(CompartirActivity.this,"Subido correctamente",Toast.LENGTH_LONG).show();
+                    DynamicToast.makeSuccess(CompartirActivity.this, "Subido correctamente").show();
 
                     Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
                     while (!urlTask.isSuccessful());
@@ -138,7 +138,7 @@ public class CompartirActivity extends AppCompatActivity {
             .addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(CompartirActivity.this,e.getMessage(),Toast.LENGTH_LONG).show();
+                    DynamicToast.makeError(CompartirActivity.this, e.getMessage()).show();
                     finish();
                 }
             })
@@ -151,7 +151,7 @@ public class CompartirActivity extends AppCompatActivity {
             });
         }
         if(FileUri==null){
-            Toast.makeText(CompartirActivity.this,"Agregue una imagen",Toast.LENGTH_LONG).show();
+            DynamicToast.makeWarning(CompartirActivity.this, "Agregue una imagen").show();
         }
 
     }
@@ -199,7 +199,7 @@ public class CompartirActivity extends AppCompatActivity {
                 irACamara();
             }
             else{
-                Toast.makeText(CompartirActivity.this,"Necesitas el permiso habilitado",Toast.LENGTH_LONG).show();
+                DynamicToast.makeWarning(CompartirActivity.this, "Necesitas el permiso habilitado").show();
             }
         }
     }
